@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+
+<body>
+
+    <h1>Beérkezett üzenetek</h1>
+    <div id="messages-box"></div>
+
+    <script>
+        let messages = JSON.parse(localStorage.getItem("messages")) || [];
+        let box = document.getElementById("messages-box");
+
+        if (messages.length === 0) {
+            box.innerHTML = "<p>Nincs üzenet.</p>";
+        } else {
+            messages.forEach(msg => {
+                box.innerHTML += `
+                <div class="content-block">
+                    <h3>${msg.name} (${msg.email})</h3>
+                    <p>${msg.message}</p>
+                </div>
+            `;
+            });
+        }
+
+
+
+
+
+
+        // Titkosított jelszó hash (ImperiusAdmin123)
+        const correctHash = "d29adc17764b4c5ad63f03a84efc192d";
+
+        function md5(str) {
+            return CryptoJS.MD5(str).toString();
+        }
+
+        let password = prompt("Add meg a jelszót:");
+
+        if (md5(password) !== correctHash) {
+            alert("Hibás jelszó!");
+            window.location.href = "index.html"; // vissza a főoldalra
+        }
+
+    </script>
+
+</body>
+
+</html>

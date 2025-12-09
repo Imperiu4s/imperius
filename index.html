@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>imperius.hu</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="assets/imperiu4s.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- BETÖLTŐ ANIMÁCIÓ -->
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <p>Betöltés...</p>
+    </div>
+
+    <!-- Hang fájl -->
+    <audio id="loading-audio" src="assets/loading.mp3"></audio>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Főoldal</a></li>
+                <li><a href="film.html">Filmek</a></li>
+                <li><a href="projekt.html">Projektek</a></li>
+                <li><a href="youtube.html">YouTube</a></li>
+                <li><a href="partner.html">Partnerek</a></li>
+            </ul>
+        </nav>
+
+        <h1>Üdv az Imperius-on!</h1>
+        <p>Itt széles körű választék áll rendelkezésedre.</p>
+    </header>
+
+    <div id="content">
+
+        <section class="content-block">
+            <h2>Miért készült az oldal?</h2>
+            <p>Örülünk, hogy csatlakoztál hozzánk! Ez a weboldal azért jött létre...</p>
+        </section>
+
+        <section class="content-block">
+            <h2>Rólam</h2>
+            <p>Csáó! Imperius vagyok, 16 éves Minecraft szerverfejlesztő...</p>
+        </section>
+
+        <!-- FILM AJÁNLÁS + EMAIL FORM BEÉPÍTVE -->
+        <section class="content-block">
+            <h2>Film ajánlás</h2>
+            <p>Írd meg nekünk a kedvenc filmedet, vagy csak küldj egy üzenetet!</p>
+
+            <!-- EMAIL KÜLDŐ FORM -->
+            <form id="email-form">
+                <input type="text" name="user_name" placeholder="Név" required>
+                <input type="email" name="user_email" placeholder="Email cím" required>
+                <textarea name="message" placeholder="Üzenet..." required></textarea>
+                <button type="submit" class="anim-btn">Küldés</button>
+            </form>
+
+            <p id="status-msg"></p>
+
+
+        </section>
+
+        <footer>
+            <p>2025 &copy; imperius.hu</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

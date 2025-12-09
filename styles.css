@@ -1,0 +1,138 @@
+/* Háttér videó */
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+/* Betöltő képernyő */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #1c1c1c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.loader {
+  border: 8px solid #555;
+  border-top: 8px solid #e74c3c;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#content { opacity: 0; transition: 1.2s; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #1c1c1c;
+  color: #fff;
+  text-align: center;
+}
+
+/* Menü */
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: #111;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul li {
+  margin: 0 20px;
+}
+
+nav ul li a {
+  color: #e74c3c;
+  text-decoration: none;
+  padding: 15px;
+  display: inline-block;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+nav ul li a:hover {
+  color: #fff;
+  background: #e74c3c;
+  border-radius: 5px;
+}
+
+/* Content blokkok */
+.content-block {
+  background: #333;
+  margin: 40px auto;
+  padding: 25px;
+  max-width: 800px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.content-block:hover {
+  background: #444;
+  transform: scale(1.04);
+}
+
+/* Film ajánlás form */
+#email-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+#email-form input,
+#email-form textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+
+#email-form textarea {
+  height: 150px;
+  resize: none;
+}
+
+.anim-btn {
+  padding: 12px 25px;
+  background: #e74c3c;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.anim-btn:hover {
+  background: #c0392b;
+}
+
+/* Footer */
+footer {
+  background: #111;
+  padding: 35px;
+  color: #aaa;
+}

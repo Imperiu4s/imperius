@@ -1,0 +1,205 @@
+/* ============ ALAP BODY ============ */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background: #1c1c1c;
+  color: #fff;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* ============ FELSŐ MENÜ ============ */
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: #111;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul li {
+  margin: 0 20px;
+}
+
+nav ul li a {
+  color: #e74c3c;
+  text-decoration: none;
+  padding: 15px;
+  display: inline-block;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  color: #fff;
+  background: #e74c3c;
+  border-radius: 5px;
+}
+
+/* ============ KERESŐ ============ */
+#search-bar {
+  margin-top: 20px;
+  padding: 10px;
+  width: 80%;
+  max-width: 400px;
+  font-size: 1.2em;
+  border-radius: 5px;
+  border: 1px solid #e74c3c;
+  background: #111;
+  color: #fff;
+}
+
+#search-bar:focus {
+  outline: none;
+  border-color: #ff6b61;
+}
+
+/* ============ FILMEK GRID LISTA ============ */
+#movie-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  width: 90%;
+  max-width: 1400px;
+  margin: 40px auto;
+}
+
+/* Film kártya */
+.movie-card {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  background: #333;
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: 0.3s;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+}
+
+.movie-card:hover {
+  transform: scale(1.03);
+  border: 2px solid #e74c3c;
+}
+
+.movie-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.movie-card:hover img {
+  transform: scale(1.1);
+}
+
+.movie-card h3 {
+  position: absolute;
+  bottom: 15px;
+  left: 10px;
+  color: white;
+  font-size: 1.2em;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width: 1200px) {
+  #movie-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media(max-width: 900px) {
+  #movie-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width: 600px) {
+  #movie-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============ FILM / SOROZAT LEJÁTSZÓ OLDAL ============ */
+.video-bg-overlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 900;
+}
+
+.movie-player-container {
+  position: relative;
+  width: 80%;
+  max-width: 1200px;
+  margin: 80px auto;
+  padding: 20px;
+  background: #111;
+  border-radius: 10px;
+  z-index: 999;
+  box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.5);
+}
+
+.movie-title {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+/* ÚJ: Sorozat választó UI */
+.episode-select {
+  margin: 15px auto;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.episode-select select {
+  padding: 10px;
+  background: #222;
+  border: 1px solid #e74c3c;
+  border-radius: 5px;
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+/* Videó */
+.movie-player {
+  width: 100%;
+  height: 65vh;
+  border-radius: 10px;
+  background: black;
+  outline: none;
+  margin-top: 15px;
+}
+
+/* ============ VISSZA GOMB ============ */
+.back-button {
+  margin-top: 20px;
+  display: inline-block;
+  padding: 10px 20px;
+  background: #e74c3c;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.back-button:hover {
+  background: #ff6b61;
+  color: black;
+}
