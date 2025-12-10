@@ -3,8 +3,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
-  background: #1c1c1c;
-  color: #fff;
+  background: #f4f4f4; /* Világos háttér */
+  color: #333; /* Sötét szöveg */
   text-align: center;
   box-sizing: border-box;
 }
@@ -14,9 +14,10 @@ nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  background: #111;
+  background: #fff; /* Fehér háttér */
   display: flex;
   justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Finom árnyék */
 }
 
 nav ul li {
@@ -24,7 +25,7 @@ nav ul li {
 }
 
 nav ul li a {
-  color: #e74c3c;
+  color: #e74c3c; /* Piros link szín */
   text-decoration: none;
   padding: 15px;
   display: inline-block;
@@ -48,8 +49,8 @@ nav ul li a.active {
   font-size: 1.2em;
   border-radius: 5px;
   border: 1px solid #e74c3c;
-  background: #111;
-  color: #fff;
+  background: #fff; /* Fehér háttér */
+  color: #333; /* Sötét szöveg */
 }
 
 #search-bar:focus {
@@ -72,7 +73,7 @@ nav ul li a.active {
   position: relative;
   width: 100%;
   height: 360px;
-  background: #333;
+  background: #fff; /* Fehér háttér */
   border-radius: 10px;
   cursor: pointer;
   overflow: hidden;
@@ -145,16 +146,16 @@ nav ul li a.active {
   max-width: 1200px;
   margin: 80px auto;
   padding: 20px;
-  background: #111;
+  background: #fff; /* Fehér háttér */
   border-radius: 10px;
   z-index: 999;
-  box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.1); /* Finom árnyék */
 }
 
 .movie-title {
   font-size: 2em;
   margin-bottom: 10px;
-  color: #e74c3c;
+  color: #e74c3c; /* Piros szín */
   font-weight: bold;
 }
 
@@ -168,10 +169,10 @@ nav ul li a.active {
 
 .episode-select select {
   padding: 10px;
-  background: #222;
+  background: #fff; /* Fehér háttér */
   border: 1px solid #e74c3c;
   border-radius: 5px;
-  color: white;
+  color: #333; /* Sötét szöveg */
   font-size: 1em;
   cursor: pointer;
 }
@@ -191,7 +192,7 @@ nav ul li a.active {
   margin-top: 20px;
   display: inline-block;
   padding: 10px 20px;
-  background: #e74c3c;
+  background: #e74c3c; /* Piros háttér */
   color: white;
   border-radius: 5px;
   text-decoration: none;
@@ -200,6 +201,6 @@ nav ul li a.active {
 }
 
 .back-button:hover {
-  background: #ff6b61;
+  background: #ff6b61; /* Világosabb piros a hover-re */
   color: black;
 }

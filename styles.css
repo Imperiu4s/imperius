@@ -17,7 +17,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #1c1c1c;
+  background-color: #f4f4f4; /* Világos háttér */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,8 +26,8 @@
 }
 
 .loader {
-  border: 8px solid #555;
-  border-top: 8px solid #e74c3c;
+  border: 8px solid #ddd; /* Világos szegély */
+  border-top: 8px solid #e74c3c; /* Piros szín a loader tetején */
   border-radius: 50%;
   width: 70px;
   height: 70px;
@@ -39,14 +39,14 @@
   100% { transform: rotate(360deg); }
 }
 
-#content { opacity: 0; transition: 1.2s; }
+#content { opacity: 100; transition: 1.2s; }
 
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background: #1c1c1c;
-  color: #fff;
+  background: #f4f4f4; /* Világos szürke háttér */
+  color: #333; /* Sötét szöveg a világos háttérhez */
   text-align: center;
 }
 
@@ -55,9 +55,10 @@ nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  background: #111;
+  background: #fff; /* Fehér háttér */
   display: flex;
   justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Finom árnyék a menünek */
 }
 
 nav ul li {
@@ -65,7 +66,7 @@ nav ul li {
 }
 
 nav ul li a {
-  color: #e74c3c;
+  color: #e74c3c; /* Piros link szín */
   text-decoration: none;
   padding: 15px;
   display: inline-block;
@@ -81,38 +82,19 @@ nav ul li a:hover {
 
 /* Content blokkok */
 .content-block {
-  background: #333;
+  background: #fff; /* Fehér háttér */
   margin: 40px auto;
   padding: 25px;
   max-width: 800px;
   border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Finom árnyék */
   transition: 0.3s;
+  color: #333; /* Sötét szöveg */
 }
 
 .content-block:hover {
-  background: #444;
+  background: #f9f9f9; /* Hőmérsékleten világosabb háttér */
   transform: scale(1.04);
-}
-
-/* Film ajánlás form */
-#email-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 20px;
-}
-
-#email-form input,
-#email-form textarea {
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  font-size: 16px;
-}
-
-#email-form textarea {
-  height: 150px;
-  resize: none;
 }
 
 .anim-btn {
@@ -132,7 +114,8 @@ nav ul li a:hover {
 
 /* Footer */
 footer {
-  background: #111;
+  background: #fff; /* Fehér háttér */
   padding: 35px;
-  color: #aaa;
+  color: #666; /* Világos szürke szöveg */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Finom árnyék a footernek */
 }

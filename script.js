@@ -20,7 +20,7 @@ window.addEventListener("load", () => {
       audio.pause();
       audio.currentTime = 0;
 
-    }, 3500);
+    }, 4000);
   }
 });
 
