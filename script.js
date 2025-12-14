@@ -32,43 +32,46 @@ window.addEventListener("load", () => {
 // FILMEK LISTÁJA (IDE RAKHATSZ TÖBBET)
 // 📌 FILMEK ÉS SOROZATOK
 const movies = [
-  { title: "K-Pop Démon Vadászok", img: "assets/kpop.png", video: "assets/movies/kpop.mp4" },
-
-  // 🔥 ÚJ: Sorozat több évaddal + részekkel
   {
-    title: "Stranger Things", img: "assets/stranger_things.png", isSeries: true,
+    title: "K-Pop Démon Vadászok",
+    img: "assets/kpop.png",
+    embed: "https://videa.hu/player?v=zYJUZZ0GBZjuZJPf"
+  },
+
+  {
+    title: "Stranger Things",
+    img: "assets/stranger_things.png",
+    isSeries: true,
     seasons: [
       {
         name: "1. évad",
         episodes: [
-          { title: "1. rész", video: "assets/series/Stranger_Things/S01E01.mp4" },
-          { title: "2. rész", video: "assets/series/Stranger_Things/S01E02.mp4" },
-          { title: "3. rész", video: "assets/series/Stranger_Things/S01E03.mp4" },
-          { title: "4. rész", video: "assets/series/Stranger_Things/S01E03.mp4" },
-          { title: "5. rész", video: "assets/series/Stranger_Things/S01E03.mp4" },
-          { title: "6. rész", video: "assets/series/Stranger_Things/S01E03.mp4" },
-          { title: "7. rész", video: "assets/series/Stranger_Things/S01E03.mp4" },
+          { title: "1. rész", embed: "https://videa.hu/player?v=qp7BrkowMbi2gvu7" },
+          { title: "2. rész", embed: "https://videa.hu/player?v=SVYXkGUZRuhBF0Mc" },
+          { title: "3. rész", embed: "https://videa.hu/player?v=S01E03" }
         ]
       },
       {
         name: "2. évad",
         episodes: [
-          { title: "1. rész: Újrakezdés", video: "series/s02e01.mp4" },
-          { title: "2. rész: Árulás", video: "series/s02e02.mp4" }
+          { title: "1. rész: Újrakezdés", embed: "https://videa.hu/player?v=S02E01" },
+          { title: "2. rész: Árulás", embed: "https://videa.hu/player?v=S02E02" }
         ]
       }
     ]
   },
-  { title: "Példa Film", img: "assets/példa.png", video: "assets/movies/példa.mp4" },
-  { title: "Példa Film", img: "assets/példa.png", video: "assets/movies/példa.mp4" },
-  { title: "Példa Film", img: "assets/példa.png", video: "assets/movies/példa.mp4" },
-  { title: "Példa Film", img: "assets/példa.png", video: "assets/movies/példa.mp4" },
-  { title: "Példa Film", img: "assets/példa.png", video: "assets/movies/példa.mp4" },
-  { title: "Példa Film", img: "assets/példa.png", video: "assets/movies/példa.mp4" },
-  { title: "Példa Film", img: "assets/példa.png", video: "assets/movies/példa.mp4" },
-  { title: "Példa Film", img: "assets/példa.png", video: "assets/movies/példa.mp4" },
-  { title: "Példa Film", img: "assets/példa.png", video: "assets/movies/példa.mp4" },
-  { title: "Példa Film", img: "assets/példa.png", video: "assets/movies/példa.mp4" },
+
+  {
+    title: "Példa Film",
+    img: "assets/példa.png",
+    embed: "https://videa.hu/player?v=PELDA123"
+  },
+
+  {
+    title: "Példa Film",
+    img: "assets/példa.png",
+    embed: "https://videa.hu/player?v=PELDA123"
+  }
 ];
 
 // 📌 Filmek betöltése
@@ -99,17 +102,25 @@ function filterMovies() {
 // 🎥 Film / Sorozat Megnyitása
 function openPlayer(movie) {
   if (!movie.isSeries) {
+    // 🎬 FILM
     document.body.innerHTML = `
       <div class="video-bg-overlay"></div>
       <div class="movie-player-container">
         <div class="movie-title">${movie.title}</div>
-        <video class="movie-player" controls>
-          <source src="${movie.video}" type="video/mp4">
-        </video>
+
+        <iframe
+          class="movie-player"
+          src="${movie.embed}"
+          frameborder="0"
+          allowfullscreen="allowfullscreen"
+          webkitallowfullscreen="webkitallowfullscreen"
+          mozallowfullscreen="mozallowfullscreen">
+        </iframe>
+
         <a href="film.html" class="back-button">⬅ Vissza</a>
       </div>`;
   } else {
-    // Sorozat UI
+    // 📺 SOROZAT
     let seasonOptions = "";
     movie.seasons.forEach((s, i) => {
       seasonOptions += `<option value="${i}">${s.name}</option>`;
@@ -125,7 +136,14 @@ function openPlayer(movie) {
           <select id="episode-select"></select>
         </div>
 
-        <video class="movie-player" id="series-player" controls></video>
+        <iframe
+          id="series-player"
+          class="movie-player"
+          frameborder="0"
+          allowfullscreen="allowfullscreen"
+          webkitallowfullscreen="webkitallowfullscreen"
+          mozallowfullscreen="mozallowfullscreen">
+        </iframe>
 
         <a href="film.html" class="back-button">⬅ Vissza</a>
       </div>
@@ -144,20 +162,22 @@ function setupSeriesPlayer(movie) {
   function loadEpisodes() {
     episodeSelect.innerHTML = "";
     const season = movie.seasons[seasonSelect.value];
+
     season.episodes.forEach((ep, i) => {
       episodeSelect.innerHTML += `<option value="${i}">${ep.title}</option>`;
     });
-    loadVideo();
+
+    loadEpisode();
   }
 
-  function loadVideo() {
+  function loadEpisode() {
     const season = movie.seasons[seasonSelect.value];
     const ep = season.episodes[episodeSelect.value];
-    player.src = ep.video;
+    player.src = ep.embed;
   }
 
   seasonSelect.onchange = loadEpisodes;
-  episodeSelect.onchange = loadVideo;
+  episodeSelect.onchange = loadEpisode;
 
   loadEpisodes();
 }
