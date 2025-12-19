@@ -53,29 +53,6 @@
             alert("Hibás jelszó!");
             window.location.href = "főoldal.html"; // vissza a főoldalra
         }
-
-        function enableMaintenance() {
-            localStorage.setItem("maintenance", "on");
-            document.getElementById("status").innerText =
-                "A weboldal karbantartási módban van.";
-        }
-
-        function disableMaintenance() {
-            localStorage.setItem("maintenance", "off");
-            document.getElementById("status").innerText =
-                "A weboldal újra elérhető.";
-        }
-
-        // státusz megjelenítés betöltéskor
-        if (localStorage.getItem("maintenance") === "on") {
-            document.getElementById("status").innerText =
-                "Jelenleg karbantartási mód aktív.";
-        } else {
-            document.getElementById("status").innerText =
-                "A weboldal normál módban fut.";
-        }
-
-
     </script>
 
 </body>
