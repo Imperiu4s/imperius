@@ -11,6 +11,12 @@
 
 <body>
 
+    <script>
+        if (localStorage.getItem("maintenance") === "on") {
+            window.location.href = "maintenance.html";
+        }
+    </script>
+
     <header>
         <nav>
             <ul>

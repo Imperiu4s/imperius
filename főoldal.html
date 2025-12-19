@@ -11,6 +11,12 @@
 
 <body>
 
+    <script>
+        if (localStorage.getItem("maintenance") === "on") {
+            window.location.href = "maintenance.html";
+        }
+    </script>
+
     <!-- BETÖLTŐ ANIMÁCIÓ -->
     <div id="loading-screen">
         <div class="loader"></div>
@@ -39,16 +45,20 @@
 
         <section class="content-block">
             <h2>Miért készült az oldal?</h2>
-            <p>Örülök hogy meglátogattad az oldalam! Ez a weboldal azért jött létre, hogy több információt tudjatok meg különböző dolgokról. Rengeteg, de rengeteg
-                dolog elérhető a weboldalon, köztük a film nézés ami most a legnépszerűbb funkció, a projektjeim és még sok más. Ezeken felül már csak azért is készült,
+            <p>Örülök hogy meglátogattad az oldalam! Ez a weboldal azért jött létre, hogy több információt tudjatok meg
+                különböző dolgokról. Rengeteg, de rengeteg
+                dolog elérhető a weboldalon, köztük a film nézés ami most a legnépszerűbb funkció, a projektjeim és még
+                sok más. Ezeken felül már csak azért is készült,
                 mert hát végülis jól néz ki egy saját oldal nem?
             </p>
         </section>
 
         <section class="content-block">
             <h2>Rólam</h2>
-            <p>Csáó! Imperius vagyok, 16 éves Minecraft szerverfejlesztő és profi. Több éve foglalkozom Minecraft szerverek fejlesztésével,
-                jelenleg programozást tanulok és úgy érzem jól megállom a helyem benne. Web oldal fejlesztésben egészen jó vagyok. Hobbim a
+            <p>Csáó! Imperius vagyok, 16 éves Minecraft szerverfejlesztő és profi. Több éve foglalkozom Minecraft
+                szerverek fejlesztésével,
+                jelenleg programozást tanulok és úgy érzem jól megállom a helyem benne. Web oldal fejlesztésben egészen
+                jó vagyok. Hobbim a
                 videózás és a célom az 50.000 feliratkozó!
             </p>
         </section>

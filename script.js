@@ -48,14 +48,19 @@ const movies = [
         episodes: [
           { title: "1. rész", embed: "https://videa.hu/player?v=qp7BrkowMbi2gvu7" },
           { title: "2. rész", embed: "https://videa.hu/player?v=SVYXkGUZRuhBF0Mc" },
-          { title: "3. rész", embed: "https://videa.hu/player?v=S01E03" }
+          { title: "3. rész", embed: "https://videa.hu/player?v=kTL9H98ARhpgtuGZ" },
+          { title: "4. rész", embed: "https://videa.hu/player?v=9TqI2jVAvYT0juMv" },
+          { title: "5. rész", embed: "https://videa.hu/player?v=wf3TVzKELjq70HKW" },
+          { title: "6. rész", embed: "https://videa.hu/player?v=CB11GJT02qVQGJdC" },
+          { title: "7. rész", embed: "" },
+          { title: "8. rész", embed: "" }
         ]
       },
       {
         name: "2. évad",
         episodes: [
-          { title: "1. rész: Újrakezdés", embed: "https://videa.hu/player?v=S02E01" },
-          { title: "2. rész: Árulás", embed: "https://videa.hu/player?v=S02E02" }
+          { title: "1. rész", embed: "https://videa.hu/player?v=S02E01" },
+          { title: "2. rész", embed: "https://videa.hu/player?v=S02E02" }
         ]
       }
     ]

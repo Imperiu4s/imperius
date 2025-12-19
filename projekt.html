@@ -11,6 +11,12 @@
 
 <body>
 
+    <script>
+        if (localStorage.getItem("maintenance") === "on") {
+            window.location.href = "maintenance.html";
+        }
+    </script>
+
     <header>
         <nav>
             <ul>
@@ -30,20 +36,23 @@
 
         <section class="content-block">
             <h2>Nova</h2>
-            <p>Ez a projekt a Minecraft szerver fejlesztésére összpontosít. A cél egy stabil szerverhálózat biztosítása a játékosok számára. A szerveren BoxPvP játékmód készül jelenleg
+            <p>Ez a projekt a Minecraft szerver fejlesztésére összpontosít. A cél egy stabil szerverhálózat biztosítása
+                a játékosok számára. A szerveren BoxPvP játékmód készül jelenleg
                 amelynél az egyediség ami igazán számít.
             </p>
         </section>
 
         <section class="content-block">
             <h2>DustSMP</h2>
-            <p>Ez az SMP egy publikus szerver ahova bárki csatlakozhat jelentkezéssel. A szerveren vannak különleges Dust-ok melyekkel különleges effektet kap a hordozója.
+            <p>Ez az SMP egy publikus szerver ahova bárki csatlakozhat jelentkezéssel. A szerveren vannak különleges
+                Dust-ok melyekkel különleges effektet kap a hordozója.
                 És igen, most te neked is van alkalmad csatlakozni a Partnerek fülnél. Várunk szeretettel!</p>
         </section>
 
         <section class="content-block">
             <h2>YouTube csatorna</h2>
-            <p>Jelenleg egy Minecraft videósorozatot készítek, melyben bemutatom a Minecraft szerverek fejlesztését és egyéb játékmenetbeli tippeket. Ezen felül célom egy jobb
+            <p>Jelenleg egy Minecraft videósorozatot készítek, melyben bemutatom a Minecraft szerverek fejlesztését és
+                egyéb játékmenetbeli tippeket. Ezen felül célom egy jobb
                 közösség megalapítása és a nagyobb közönség megteremtése.
             </p>
         </section>

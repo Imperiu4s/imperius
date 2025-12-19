@@ -11,6 +11,11 @@
 <body>
 
     <h1>Beérkezett üzenetek</h1>
+    <button onclick="enableMaintenance()">Weboldal leállítása</button>
+    <button onclick="disableMaintenance()">Weboldal elindítása</button>
+
+    <p id="status"></p>
+
     <div id="messages-box"></div>
 
     <script>
@@ -46,8 +51,30 @@
 
         if (md5(password) !== correctHash) {
             alert("Hibás jelszó!");
-            window.location.href = "index.html"; // vissza a főoldalra
+            window.location.href = "főoldal.html"; // vissza a főoldalra
         }
+
+        function enableMaintenance() {
+            localStorage.setItem("maintenance", "on");
+            document.getElementById("status").innerText =
+                "A weboldal karbantartási módban van.";
+        }
+
+        function disableMaintenance() {
+            localStorage.setItem("maintenance", "off");
+            document.getElementById("status").innerText =
+                "A weboldal újra elérhető.";
+        }
+
+        // státusz megjelenítés betöltéskor
+        if (localStorage.getItem("maintenance") === "on") {
+            document.getElementById("status").innerText =
+                "Jelenleg karbantartási mód aktív.";
+        } else {
+            document.getElementById("status").innerText =
+                "A weboldal normál módban fut.";
+        }
+
 
     </script>
 
