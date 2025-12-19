@@ -17,7 +17,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #f4f4f4; /* Világos háttér */
+  background-color: #e0f7fa; /* Világos kék háttér */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,8 +26,8 @@
 }
 
 .loader {
-  border: 8px solid #ddd; /* Világos szegély */
-  border-top: 8px solid #e74c3c; /* Piros szín a loader tetején */
+  border: 8px solid #b2ebf2; /* Világoskék szegély */
+  border-top: 8px solid #007bb5; /* Sötétkék szín a loader tetején */
   border-radius: 50%;
   width: 70px;
   height: 70px;
@@ -45,8 +45,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background: #f4f4f4; /* Világos szürke háttér */
-  color: #333; /* Sötét szöveg a világos háttérhez */
+  background: #e0f7fa; /* Világos kék háttér */
+  color: #004d6f; /* Sötétkék szöveg a világos háttérhez */
   text-align: center;
 }
 
@@ -55,7 +55,7 @@ nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  background: #fff; /* Fehér háttér */
+  background: #007bb5; /* Sötétkék háttér */
   display: flex;
   justify-content: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Finom árnyék a menünek */
@@ -66,7 +66,7 @@ nav ul li {
 }
 
 nav ul li a {
-  color: #e74c3c; /* Piros link szín */
+  color: #ffffff; /* Fehér link szín */
   text-decoration: none;
   padding: 15px;
   display: inline-block;
@@ -76,30 +76,30 @@ nav ul li a {
 
 nav ul li a:hover {
   color: #fff;
-  background: #e74c3c;
+  background: #004d6f; /* Sötétkék háttér hover állapotban */
   border-radius: 5px;
 }
 
 /* Content blokkok */
 .content-block {
-  background: #fff; /* Fehér háttér */
+  background: #ffffff; /* Fehér háttér */
   margin: 40px auto;
   padding: 25px;
   max-width: 800px;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Finom árnyék */
   transition: 0.3s;
-  color: #333; /* Sötét szöveg */
+  color: #004d6f; /* Sötétkék szöveg */
 }
 
 .content-block:hover {
-  background: #f9f9f9; /* Hőmérsékleten világosabb háttér */
+  background: #f0f8ff; /* Világosabb kék háttér hover állapotban */
   transform: scale(1.04);
 }
 
 .anim-btn {
   padding: 12px 25px;
-  background: #e74c3c;
+  background: #007bb5; /* Sötétkék háttér */
   border: none;
   color: white;
   font-size: 16px;
@@ -109,13 +109,13 @@ nav ul li a:hover {
 }
 
 .anim-btn:hover {
-  background: #c0392b;
+  background: #004d6f; /* Mélyebb kék szín hover állapotban */
 }
 
 /* Footer */
 footer {
-  background: #fff; /* Fehér háttér */
+  background: #007bb5; /* Sötétkék háttér */
   padding: 35px;
-  color: #666; /* Világos szürke szöveg */
+  color: #ffffff; /* Fehér szöveg */
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Finom árnyék a footernek */
 }

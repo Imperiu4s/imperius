@@ -3,8 +3,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
-  background: #f4f4f4; /* Világos háttér */
-  color: #333; /* Sötét szöveg */
+  background: #e0f7fa; /* Világos kék háttér */
+  color: #004d6f; /* Sötétkék szöveg */
   text-align: center;
   box-sizing: border-box;
 }
@@ -14,7 +14,7 @@ nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  background: #fff; /* Fehér háttér */
+  background: #007bb5; /* Sötétkék háttér */
   display: flex;
   justify-content: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Finom árnyék */
@@ -25,7 +25,7 @@ nav ul li {
 }
 
 nav ul li a {
-  color: #e74c3c; /* Piros link szín */
+  color: #ffffff; /* Fehér link szín */
   text-decoration: none;
   padding: 15px;
   display: inline-block;
@@ -36,7 +36,7 @@ nav ul li a {
 nav ul li a:hover,
 nav ul li a.active {
   color: #fff;
-  background: #e74c3c;
+  background: #004d6f; /* Sötétkék háttér */
   border-radius: 5px;
 }
 
@@ -48,14 +48,14 @@ nav ul li a.active {
   max-width: 400px;
   font-size: 1.2em;
   border-radius: 5px;
-  border: 1px solid #e74c3c;
+  border: 1px solid #007bb5; /* Kék szín a kereső szegélyén */
   background: #fff; /* Fehér háttér */
-  color: #333; /* Sötét szöveg */
+  color: #004d6f; /* Sötétkék szöveg */
 }
 
 #search-bar:focus {
   outline: none;
-  border-color: #ff6b61;
+  border-color: #004d6f; /* Sötétkék border a fókuszált keresőnél */
 }
 
 /* ============ FILMEK GRID LISTA ============ */
@@ -84,7 +84,7 @@ nav ul li a.active {
 
 .movie-card:hover {
   transform: scale(1.03);
-  border: 2px solid #e74c3c;
+  border: 2px solid #007bb5; /* Kék szín a hover border */
 }
 
 .movie-card img {
@@ -136,7 +136,7 @@ nav ul li a.active {
   height: 100vh;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(91, 130, 153, 0.85);
   z-index: 900;
 }
 
@@ -155,7 +155,7 @@ nav ul li a.active {
 .movie-title {
   font-size: 2em;
   margin-bottom: 10px;
-  color: #e74c3c; /* Piros szín */
+  color: #007bb5; /* Kék szín */
   font-weight: bold;
 }
 
@@ -170,9 +170,9 @@ nav ul li a.active {
 .episode-select select {
   padding: 10px;
   background: #fff; /* Fehér háttér */
-  border: 1px solid #e74c3c;
+  border: 1px solid #007bb5; /* Kék szegély */
   border-radius: 5px;
-  color: #333; /* Sötét szöveg */
+  color: #004d6f; /* Sötétkék szöveg */
   font-size: 1em;
   cursor: pointer;
 }
@@ -192,7 +192,7 @@ nav ul li a.active {
   margin-top: 20px;
   display: inline-block;
   padding: 10px 20px;
-  background: #e74c3c; /* Piros háttér */
+  background: #007bb5; /* Kék háttér */
   color: white;
   border-radius: 5px;
   text-decoration: none;
@@ -201,6 +201,6 @@ nav ul li a.active {
 }
 
 .back-button:hover {
-  background: #ff6b61; /* Világosabb piros a hover-re */
-  color: black;
+  background: #004d6f; /* Sötétkék háttér a hover-re */
+  color: white;
 }
