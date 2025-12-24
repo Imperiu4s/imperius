@@ -52,15 +52,22 @@ const movies = [
           { title: "4. rész", embed: "https://videa.hu/player?v=9TqI2jVAvYT0juMv" },
           { title: "5. rész", embed: "https://videa.hu/player?v=wf3TVzKELjq70HKW" },
           { title: "6. rész", embed: "https://videa.hu/player?v=CB11GJT02qVQGJdC" },
-          { title: "7. rész", embed: "" },
-          { title: "8. rész", embed: "" }
+          { title: "7. rész", embed: "https://videa.hu/player?v=A6aygrGOAXWYCvCZ" },
+          { title: "8. rész", embed: "https://videa.hu/player?v=FdPIxoGg0IP3NUm8" }
         ]
       },
       {
         name: "2. évad",
         episodes: [
-          { title: "1. rész", embed: "https://videa.hu/player?v=S02E01" },
-          { title: "2. rész", embed: "https://videa.hu/player?v=S02E02" }
+          { title: "1. rész", embed: "https://videa.hu/player?v=Dj3aJqOGGkPVygCi" },
+          { title: "2. rész", embed: "https://videa.hu/player?v=XaBKEsiP9kT4kC7P" },
+          { title: "3. rész", embed: "https://videa.hu/player?v=UN29nxZjWj7gEFPN" },
+          { title: "4. rész", embed: "https://videa.hu/player?v=S02E02" },
+          { title: "5. rész", embed: "https://videa.hu/player?v=S02E02" },
+          { title: "6. rész", embed: "https://videa.hu/player?v=S02E02" },
+          { title: "7. rész", embed: "https://videa.hu/player?v=S02E02" },
+          { title: "8. rész", embed: "https://videa.hu/player?v=S02E02" },
+          { title: "9. rész", embed: "https://videa.hu/player?v=S02E02" }
         ]
       }
     ]
