@@ -1,0 +1,202 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+
+@font-face {
+  font-family: "mac's Minecraft";
+  src: url("fonts/mac's Minecraft.ttf");
+}
+
+:root {
+  --bg-main: #070b1a;
+  --bg-sec: #0e1430;
+  --blue: #1e90ff;
+  --blue-glow: #4fa3ff;
+  --text: #e0e6ff;
+  --card: #0c1333;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "mac's Minecraft", monospace;
+}
+
+body {
+  background: linear-gradient(135deg, var(--bg-main), var(--bg-sec));
+  color: var(--text);
+  min-height: 100vh;
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 5px var(--blue); }
+  50% { box-shadow: 0 0 20px var(--blue-glow); }
+  100% { box-shadow: 0 0 5px var(--blue); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: rgba(5, 8, 25, 0.95);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10%;
+  border-bottom: 2px solid var(--blue);
+}
+
+.logo {
+  font-size: 22px;
+  color: var(--blue);
+  animation: glow 3s infinite;
+}
+
+nav a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: var(--text);
+  position: relative;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: var(--blue);
+  left: 0;
+  bottom: -5px;
+  transition: 0.3s;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+main {
+  padding: 60px 10%;
+}
+
+section {
+  margin-bottom: 60px;
+  background: rgba(255,255,255,0.03);
+  padding: 30px;
+  border-left: 4px solid var(--blue);
+  animation: slideUp 0.8s ease;
+}
+
+section h2 {
+  margin-bottom: 15px;
+}
+
+section h2 i {
+  color: var(--blue);
+  margin-right: 10px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 30px;
+}
+
+.card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 12px;
+  transition: 0.3s;
+  animation: fadeIn 1.2s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  animation: glow 2s infinite;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  background: var(--blue);
+  border: none;
+  padding: 10px 15px;
+  margin-top: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: var(--blue-glow);
+  transform: scale(1.05);
+}
+
+.movie-row {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 20px;
+}
+
+.movie {
+  min-width: 200px;
+  position: relative;
+  transition: 0.3s;
+}
+
+.movie img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.movie:hover {
+  transform: scale(1.15);
+  z-index: 5;
+}
+
+.rating {
+  margin-top: 5px;
+  color: gold;
+}
+
+.progress {
+  background: #222;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 30px;
+  width: 12%; /* PROGRESSBAR */
+  background: linear-gradient(90deg, var(--blue), var(--blue-glow));
+  text-align: center;
+  line-height: 30px;
+  animation: glow 2s infinite;
+}
+
+footer {
+  background: #040714;
+  padding: 30px;
+  text-align: center;
+  font-size: 12px;
+}
+
+footer a {
+  color: var(--blue);
+  margin: 0 10px;
+  text-decoration: none;
+}
