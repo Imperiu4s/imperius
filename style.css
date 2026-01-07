@@ -181,7 +181,7 @@ button:hover {
 
 .progress-bar {
   height: 30px;
-  width: 15%; /* PROGRESSBAR */
+  width: 20%; /* PROGRESSBAR */
   background: linear-gradient(90deg, var(--blue), var(--blue-glow));
   text-align: center;
   line-height: 30px;
@@ -200,4 +200,5 @@ footer a {
   margin: 0 10px;
   text-decoration: none;
 }
+
 
