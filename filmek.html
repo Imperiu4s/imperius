@@ -18,24 +18,54 @@
             <a href="projektek.html">Projektek</a>
             <a href="youtube.html">YouTube</a>
             <a href="filmek.html">Filmek</a>
-            <a href="karbantartas.html">Karbantartás</a>
         </nav>
     </header>
 
 
     <main>
-        <section>
-            <h2><i class="fa-solid fa-clapperboard"></i> Filmek</h2>
-            <div class="movie-row">
-                <div class="movie"><img src="film1.jpg">
-                    <div class="rating">★★★★☆ (3.0)</div>
+        <section class="movies-section">
+            <h2 class="title-fix">
+                <i class="fa-solid fa-clapperboard"></i>
+                <span>Filmek</span>
+            </h2>
+
+            <div class="movies-grid">
+
+                <div class="movie-card" data-movie="stranger">
+                    <div class="movie-poster">
+                        <img src="assets/stranger_things.png" alt="Stranger Things">
+                    </div>
+                    <div class="movie-info">
+                        <h3>Stranger Things</h3>
+                        <div class="rating">★★★★☆ <span>(3.0)</span></div>
+                    </div>
                 </div>
-                <div class="movie"><img src="film2.jpg">
-                    <div class="rating">★★★★★ (4.5)</div>
+
+                <div class="movie-card" data-movie="kpop">
+                    <div class="movie-poster">
+                        <img src="assets/kpop.png" alt="K-pop Demon Hunters">
+                    </div>
+                    <div class="movie-info">
+                        <h3>K-pop Demon Hunters</h3>
+                        <div class="rating">★★★★★ <span>(4.5)</span></div>
+                    </div>
                 </div>
+
             </div>
         </section>
     </main>
+
+    <div id="playerModal" class="player-modal">
+        <div class="player-content">
+            <span class="close-btn" onclick="closePlayer()">✖</span>
+
+            <h3 id="playerTitle"></h3>
+
+            <div id="episodeControls"></div>
+
+            <iframe id="videoFrame" src="" allowfullscreen></iframe>
+        </div>
+    </div>
 
 
     <footer>
