@@ -1,4 +1,14 @@
 <?php
+// CORS engedélyezése
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
 // A Discord webhook URL
 $webhook = "https://discord.com/api/webhooks/1471263896831529196/GGuqdMHsopW-BBnuWf4vj92qc1E8nWKcBfm_MHaTnKgBkKkFK9-4K5-E_SkE7ggv4heY";
 
