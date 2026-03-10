@@ -1,0 +1,5 @@
+RewriteEngine On
+
+# Ha a dc.imperius.hu-t nyitják meg, irányítsd át a Discord oldalra
+RewriteCond %{HTTP_HOST} ^dc\.imperius\.hu$ [NC]
+RewriteRule ^.*$ /discord.html [L,R=302]
