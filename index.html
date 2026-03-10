@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imperiussss™</title>
+    <style>
+        :root {
+            --bg-main: #050509;
+            --bg-elevated: #101018;
+            --accent: #3a86ff;
+            --accent2: #4361ee;
+            --accent-soft: #4cc9f022;
+            --text-main: #f5f5f5;
+            --text-muted: #a0a0b5;
+            --border-subtle: #2a2a3d;
+            --card-radius: 14px;
+            --transition-fast: 0.2s ease-out;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, #151528 0, #050509 55%);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(16px);
+            background: linear-gradient(to bottom, #050509ee, #050509cc 60%, transparent);
+            border-bottom: 1px solid #ffffff11;
+        }
+
+        .nav {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: radial-gradient(circle at 30% 20%, #ffffffaa 0, var(--accent) 35%, #050509 80%);
+            box-shadow: 0 0 18px var(--accent-soft);
+        }
+
+        .brand-text {
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 18px;
+            font-size: 14px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            padding: 6px 10px;
+            border-radius: 999px;
+            transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+        }
+
+        .nav-links a:hover {
+            background: #ffffff10;
+            color: var(--text-main);
+            transform: translateY(-1px);
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .section {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-header {
+            margin-bottom: 26px;
+        }
+
+        .section-kicker {
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        .section-title {
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            max-width: 520px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+            gap: 40px;
+            align-items: center;
+            padding-top: 80px;
+            padding-bottom: 40px;
+        }
+
+        .hero-title {
+            font-size: clamp(32px, 4vw, 40px);
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .hero-text {
+            color: var(--text-muted);
+            font-size: 15px;
+            max-width: 520px;
+            margin-bottom: 22px;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 22px;
+        }
+
+        .tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid #ffffff22;
+            color: var(--text-muted);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn-primary,
+        .btn-ghost {
+            border-radius: 999px;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border var(--transition-fast), color var(--transition-fast);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            box-shadow: 0 0 18px var(--accent-soft);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0 26px var(--accent-soft);
+        }
+
+        .btn-ghost {
+            background: #ffffff05;
+            color: var(--text-main);
+            border-color: #ffffff22;
+        }
+
+        .btn-ghost:hover {
+            background: #ffffff12;
+            border-color: #ffffff55;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 18px;
+            margin-top: 18px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .hero-card {
+            background: radial-gradient(circle at top, #1f2a48 0, #101018 55%);
+            border-radius: 22px;
+            padding: 20px;
+            border: 1px solid #ffffff11;
+            box-shadow: 0 18px 40px #000000aa;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card-tag {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: #ffffff11;
+            color: #ffffffcc;
+        }
+
+        .hero-card-main {
+            margin-top: 18px;
+            margin-bottom: 18px;
+        }
+
+        .hero-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .hero-card-text {
+            font-size: 13px;
+            color: #d0d0e0;
+        }
+
+        .hero-card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .hero-stat {
+            background: #ffffff08;
+            border-radius: 12px;
+            padding: 10px 12px;
+            border: 1px solid #ffffff11;
+            font-size: 12px;
+        }
+
+        .hero-stat-label {
+            color: var(--text-muted);
+            font-size: 11px;
+            margin-bottom: 2px;
+        }
+
+        .hero-stat-value {
+            font-weight: 600;
+        }
+
+        .hero-card-footer {
+            margin-top: 18px;
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            background: var(--bg-elevated);
+            border-radius: var(--card-radius);
+            padding: 18px 18px 16px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 10px 26px #00000088;
+            position: relative;
+            overflow: hidden;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast), border var(--transition-fast), background var(--transition-fast);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, var(--accent-soft), transparent 55%);
+            opacity: 0;
+            transition: opacity var(--transition-fast);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 40px #000000dd;
+            border-color: #ffffff33;
+            background: #151520;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-kicker {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .card-text {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .card-list {
+            margin-top: 10px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .card-list li {
+            margin-left: 16px;
+            margin-bottom: 4px;
+        }
+
+        .timeline {
+            border-left: 1px solid var(--border-subtle);
+            padding-left: 18px;
+            margin-top: 10px;
+        }
+
+        .timeline-item {
+            margin-bottom: 14px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -9px;
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent-soft);
+        }
+
+        .timeline-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .timeline-title {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 24px;
+        }
+
+        .contact-box {
+            background: var(--bg-elevated);
+            border-radius: var(--card-radius);
+            padding: 18px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 10px 26px #00000088;
+        }
+
+        .contact-row {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .contact-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .contact-value {
+            font-size: 14px;
+        }
+
+        .contact-note {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .field-label {
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+            background: #050509;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+            transition: border var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px var(--accent-soft);
+            background: #080812;
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        footer {
+            border-top: 1px solid #ffffff11;
+            padding: 18px 20px 26px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .footer-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .hero-card {
+                order: -1;
+            }
+
+            .grid-3 {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .grid-2 {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .contact-layout {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+
+
+
+
+        .notify-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            position: relative;
+            z-index: 9999;
+        }
+
+        .global-notify {
+            padding: 12px 20px;
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 10px;
+            color: #fff;
+            backdrop-filter: blur(6px);
+            border: 1px solid #ffffff22;
+            box-shadow: 0 4px 14px #00000055;
+            max-width: 600px;
+            width: fit-content;
+            text-align: center;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            display: inline-block;
+        }
+
+        .global-notify a {
+            font-weight: 600;
+            text-decoration: underline;
+            margin-left: 6px;
+        }
+
+        .notify-hidden {
+            transform: translateY(-20px);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .notify-visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .notify-info {
+            background: linear-gradient(135deg, #3a86ff, #4361ee);
+        }
+
+        .notify-warning {
+            background: linear-gradient(135deg, #ffb703, #fb8500);
+        }
+
+        .notify-danger {
+            background: linear-gradient(135deg, #d00000, #9d0208);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <header>
+            <div class="nav">
+                <div class="brand">
+                    <div class="brand-logo"></div>
+                    <div class="brand-text">IMPERIUSSSS</div>
+                </div>
+                <nav class="nav-links">
+                    <a href="#rolam">Rólam</a>
+                    <a href="#tartalom">Tartalom</a>
+                    <a href="#kozosseg">Közösség</a>
+                    <a href="#kapcsolat">Kapcsolat</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="notify-wrapper">
+            <div class="global-notify notify-hidden notify-info" id="notify-info">
+                Dupla XP hétvége Discordon!
+                <a href="https://discord.gg/YPstkSXdN4" target="_blank">Kattints</a>
+                a csatlakozáshoz!
+            </div>
+
+            <div class="global-notify notify-hidden notify-warning" id="notify-warning">
+                Nyereményjáték a Discordon!
+                <a href="https://discord.gg/YPstkSXdN4" target="_blank">Kattints</a>
+                a részletekért!
+            </div>
+
+            <div class="global-notify notify-hidden notify-danger" id="notify-danger">
+                Jelenleg élő adás megy!
+                <a href="https://www.youtube.com/@imperiu4s" target="_blank">Kattints</a>
+                hogy megnézd!
+            </div>
+        </div>
+
+        <main>
+            <section class="section hero" id="home">
+                <div>
+                    <div class="section-kicker">Gaming · Közösség · Inspiráció</div>
+                    <h1 class="hero-title">
+                        Ahol a játék tényleg összehoz minket
+                    </h1>
+                    <p class="hero-text">
+                        Szia, Imperiussss vagyok. Nekem a játék nem csak arról szól, hogy leülök és nyomom.
+                        Ez az a hely, ahol kikapcsolok, ahol tanulok, ahol néha felhúzom magam, máskor meg sírva
+                        röhögök.
+                        És ami a legfontosabb: ahol emberekkel találkozom, akikkel jó együtt lenni.
+                        A csatornát azért építem, mert szeretnék egy olyan közösséget, ahol mindenki jól érzi magát,
+                        ahol lehet beszélgetni, hülyülni, fejlődni — és ahol senki nincs egyedül.
+                    </p>
+
+                    <div class="hero-tags">
+                        <span class="tag">Gaming</span>
+                        <span class="tag">Közösség</span>
+                        <span class="tag">Őszinte hangulat</span>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a class="btn-primary" href="https://www.youtube.com/@imperiu4s" target="_blank">
+                            YouTube csatorna
+                        </a>
+                        <a class="btn-ghost" href="https://discord.com/invite/YPstkSXdN4" target="_blank">
+                            Discord közösség
+                        </a>
+                    </div>
+
+                    <div class="hero-meta">
+                        <span>• Valódi beszélgetések</span>
+                        <span>• Emberi közösség</span>
+                    </div>
+                </div>
+
+                <aside class="hero-card">
+                    <div class="hero-card-tag">Közösség</div>
+                    <div class="hero-card-main">
+                        <div class="hero-card-title">Imperiussss · Gaming közösség</div>
+                        <div class="hero-card-text">
+                            Egy hely, ahol a játékos nem csak néző, hanem része annak, ami épül.
+                            A cél, hogy legyen egy közeg, ahol jó lenni, ahol lehet hibázni, nevetni,
+                            és közben együtt fejlődni.
+                        </div>
+                    </div>
+                    <div class="hero-card-grid">
+                        <div class="hero-stat">
+                            <div class="hero-stat-label">Fókusz</div>
+                            <div class="hero-stat-value">Gaming & fejlődés</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-label">Stílus</div>
+                            <div class="hero-stat-value">Őszinte, emberi</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-label">Közösség</div>
+                            <div class="hero-stat-value">Discord alapú</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-label">Tartalom</div>
+                            <div class="hero-stat-value">Live + videók</div>
+                        </div>
+                    </div>
+                    <div class="hero-card-footer">
+                        <span>“A játék több, mint időtöltés.”</span>
+                        <span>Imperiussss</span>
+                    </div>
+                </aside>
+            </section>
+
+            <section class="section" id="rolam">
+                <div class="section-header">
+                    <div class="section-kicker">Rólam</div>
+                    <div class="section-title">Ki az Imperiussss a képernyő mögött?</div>
+                    <div class="section-subtitle">
+                        Nem csak a játék számít, hanem az is, milyen napod volt, hogyan érzed magad,
+                        és hogy van-e egy hely, ahol önmagad lehetsz.
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <article class="card">
+                        <div class="card-kicker">Szemlélet</div>
+                        <div class="card-title">A gaming, mint biztonságos hely</div>
+                        <p class="card-text">
+                            Imperiussss vagyok, egy srác, aki gyerekkora óta imád játszani.
+                            A játék nekem mindig egy olyan hely volt, ahol ki tudtam kapcsolni,
+                            ahol nem számított, milyen napom volt, és ahol mindig volt valami új.
+                            A csatornát azért indítottam, mert szerettem volna egy közösséget,
+                            ahol nem csak nézők vannak, hanem emberek, akikkel jó együtt lenni.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-kicker">Értékek</div>
+                        <div class="card-title">Miben hiszek?</div>
+                        <ul class="card-list">
+                            <li><strong>Fejlődés</strong> – mindenki lehet jobb, csak idő kell hozzá.</li>
+                            <li><strong>Őszinteség</strong> – nincs pózolás, nincs szerep, csak az, ami van.</li>
+                            <li><strong>Közösség</strong> – együtt mindig többre jutunk.</li>
+                            <li><strong>Tisztelet</strong> – nálam nincs helye toxikusságnak.</li>
+                        </ul>
+                    </article>
+                </div>
+
+                <article class="card" style="margin-top:18px;">
+                    <div class="card-kicker">Ha most találtál rám</div>
+                    <div class="card-title">Hol érdemes kezdened?</div>
+                    <p class="card-text">
+                        Nézz bele pár videóba, és ha tetszik a vibe, gyere Discordra.
+                        Ott sokkal közelebb kerülünk egymáshoz, és ott történik a legtöbb jó pillanat.
+                    </p>
+                </article>
+            </section>
+
+            <section class="section" id="tartalom">
+                <div class="section-header">
+                    <div class="section-kicker">Tartalom</div>
+                    <div class="section-title">Mit találsz az Imperiussss csatornán?</div>
+                    <div class="section-subtitle">
+                        Nem csak klippek és highlightok — hanem valódi pillanatok, őszinte reakciók és fejlődés.
+                    </div>
+                </div>
+
+                <div class="grid-3">
+                    <article class="card">
+                        <div class="card-kicker">Sorozat</div>
+                        <div class="card-title">Legjobb pillanatok</div>
+                        <p class="card-text">
+                            A csatorna legőrültebb, legviccesebb vagy épp legfeszültebb pillanatai.
+                            Azok a részek, amik miatt sokan visszajárnak.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-kicker">Fókusz</div>
+                        <div class="card-title">Fejlődési út</div>
+                        <p class="card-text">
+                            Nem csak arról szól, hogy “jobban játszom”.
+                            Sokkal inkább arról, hogyan gondolkodom, hogyan reagálok,
+                            és hogyan próbálok minden meccsből tanulni valamit.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-kicker">Live</div>
+                        <div class="card-title">Közösségi streamek</div>
+                        <p class="card-text">
+                            A live-okban történik minden, ami igazán őszinte.
+                            Ott beszélgetünk, ott születnek a belsős poénok,
+                            ott van a legtöbb spontán pillanat.
+                        </p>
+                    </article>
+                </div>
+
+                <article class="card" style="margin-top:18px;">
+                    <div class="card-kicker">Kulisszák</div>
+                    <div class="card-title">Ami nem mindig kerül ki YouTube-ra</div>
+                    <p class="card-text">
+                        Discordon sokszor olyan dolgokról is beszélek, amik nem kerülnek fel YouTube-ra:
+                        tervek, ötletek, háttérinfók, vagy csak sima dumálás.
+                    </p>
+                </article>
+            </section>
+
+            <section class="section" id="kozosseg">
+                <div class="section-header">
+                    <div class="section-kicker">Közösség</div>
+                    <div class="section-title">Nem csak nézők — közösség</div>
+                    <div class="section-subtitle">
+                        Olyan emberekből állunk, akik szeretnek játszani, beszélgetni,
+                        és akiknek számít, hogy jó legyen a hangulat.
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <article class="card">
+                        <div class="card-kicker">Discord</div>
+                        <div class="card-title">A hely, ahol tényleg együtt vagyunk</div>
+                        <p class="card-text">
+                            Ha szeretnél egy olyan közösséghez tartozni, ahol tényleg figyelünk egymásra,
+                            ahol lehet beszélgetni, játszani, hülyülni vagy akár komolyabb témákról is beszélni,
+                            akkor a Discord szerverem neked való.
+                        </p>
+                        <div style="margin-top:12px;">
+                            <a class="btn-primary" href="https://discord.com/invite/YPstkSXdN4" target="_blank">
+                                Csatlakozás a Discordhoz
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-kicker">Közös élmények</div>
+                        <div class="card-title">Ami miatt jó ide tartozni</div>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-label">Közös játékestek</div>
+                                <div class="timeline-title">Szervezett sessionök a közösséggel</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-label">Live események</div>
+                                <div class="timeline-title">Tematikus streamek, kihívások</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-label">Közösségi projektek</div>
+                                <div class="timeline-title">Hosszabb távú, közösen épített kezdeményezések</div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section" id="kapcsolat">
+                <div class="section-header">
+                    <div class="section-kicker">Kapcsolat</div>
+                    <div class="section-title">Írj nyugodtan</div>
+                    <div class="section-subtitle">
+                        Ha szeretnél kérdezni, együttműködni, vagy csak megosztanál valamit, itt megtalálsz.
+                    </div>
+                </div>
+
+                <div class="contact-layout">
+                    <div class="contact-box">
+                        <div class="contact-row">
+                            <div class="contact-label">Email</div>
+                            <div class="contact-value">imperiu4s@gmail.com</div>
+                        </div>
+                        <div class="contact-row">
+                            <div class="contact-label">YouTube</div>
+                            <div class="contact-value">
+                                <a href="https://www.youtube.com/@imperiu4s" target="_blank">youtube.com/@imperiu4s</a>
+                            </div>
+                        </div>
+                        <div class="contact-row">
+                            <div class="contact-label">Discord</div>
+                            <div class="contact-value">
+                                <a href="https://discord.com/invite/YPstkSXdN4"
+                                    target="_blank">discord.com/invite/YPstkSXdN4</a>
+                            </div>
+                        </div>
+                        <div class="contact-note">
+                            Ha partner megkeresésről van szó, kérlek írd le röviden, miről lenne szó.
+                        </div>
+                    </div>
+
+                    <div class="contact-box">
+                        <div class="card-kicker">Üzenet</div>
+                        <div class="card-title">Köszönöm, hogy itt vagy</div>
+                        <p class="card-text">
+                            Tényleg sokat jelent, hogy benéztél az oldalamra. Ha szeretnél írni nekem,
+                            kérdezni, ötletet dobni vagy csak megosztani valamit, nyugodtan keress meg
+                            YouTube-on vagy Discordon. Mindkét helyen aktív vagyok, és igyekszem mindenkinek válaszolni.
+                        </p>
+                        <p class="card-text" style="margin-top:10px;">
+                            Ha komolyabb, partner jellegű megkeresésed van, akkor emailben tudsz elérni:
+                            <strong>imperiu4s@gmail.com</strong>
+                        </p>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <div class="footer-inner">
+                <span>™ 2026 Imperiussss · Powered by the Community & Partners</span>
+                <span>Gaming · Közösség · Inspiráció</span>
+            </div>
+        </footer>
+
+    </div>
+    <script>
+        function showNotify(id) {
+            document.getElementById(id).classList.remove("notify-hidden");
+            document.getElementById(id).classList.add("notify-visible");
+        }
+
+        function hideNotify(id) {
+            document.getElementById(id).classList.remove("notify-visible");
+            document.getElementById(id).classList.add("notify-hidden");
+        }
+
+        function checkNotifications() {
+            const now = new Date();
+            const day = now.getDay(); // 0=vasárnap, 1=hétfő, ..., 6=szombat
+            const hour = now.getHours();
+
+            // --- 1. Dupla XP hétvége (minden 2. hét) ---
+            const weekNumber = Math.ceil((((now - new Date(now.getFullYear(), 0, 1)) / 86400000) + new Date(now.getFullYear(), 0, 1).getDay() + 1) / 7);
+
+            if ((day === 6 || day === 0) && weekNumber % 2 === 0) {
+                showNotify("notify-info");
+            } else {
+                hideNotify("notify-info");
+            }
+
+            // --- 2. Nyereményjáték (minden szerdán 17:00–18:00) ---
+            if (day === 3 && hour === 17) {
+                showNotify("notify-warning");
+            } else {
+                hideNotify("notify-warning");
+            }
+
+            // --- 3. Élő adás (manuális vezérlés) ---
+            // showNotify("notify-danger");
+            // hideNotify("notify-danger");
+        }
+
+        setInterval(checkNotifications, 30000);
+        checkNotifications();
+    </script>
+
+
+</body>
+
+</html>
