@@ -907,10 +907,9 @@
 
         function checkNotifications() {
             const now = new Date();
-            const day = now.getDay(); // 0=vasárnap, 1=hétfő, ..., 6=szombat
+            const day = now.getDay();
             const hour = now.getHours();
 
-            // --- 1. Dupla XP hétvége (minden 2. hét) ---
             const weekNumber = Math.ceil((((now - new Date(now.getFullYear(), 0, 1)) / 86400000) + new Date(now.getFullYear(), 0, 1).getDay() + 1) / 7);
 
             if ((day === 6 || day === 0) && weekNumber % 2 === 0) {
@@ -919,16 +918,12 @@
                 hideNotify("notify-info");
             }
 
-            // --- 2. Nyereményjáték (minden szerdán 17:00–18:00) ---
             if (day === 3 && hour === 17) {
                 showNotify("notify-warning");
             } else {
                 hideNotify("notify-warning");
             }
 
-            // --- 3. Élő adás (manuális vezérlés) ---
-            // showNotify("notify-danger");
-            // hideNotify("notify-danger");
         }
 
         setInterval(checkNotifications, 30000);
