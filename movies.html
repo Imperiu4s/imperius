@@ -11,15 +11,12 @@
 
     <header class="navbar">
         <div class="logo">IMPIX</div>
-
         <button class="theme-toggle" id="themeToggle">Téma váltás</button>
-
         <input type="text" id="searchInput" class="search-bar" placeholder="Keresés...">
         <div id="searchResults" class="search-results"></div>
     </header>
 
     <main class="main-content" id="contentArea">
-
         <div id="movieSections">
 
             <section class="row">
@@ -43,39 +40,30 @@
             </section>
 
         </div>
-
     </main>
-
-    <!-- Modal -->
-    <div class="overlay" id="overlay">
-        <div class="modal" id="modal">
-            <button class="modal-close" id="modal-close">✕</button>
-            <div id="modal-content"></div>
-        </div>
-    </div>
 
     <script src="app.js"></script>
 
+    <!-- VIP ellenőrzés -->
     <script>
         const params = new URLSearchParams(window.location.search);
         const token = params.get("token");
 
         if (!token) {
-            window.location.href = "https://imperius.hu/nomovies.html";
+            window.location.href = "/nomovies";
+        } else {
+            fetch(`/check-vip?token=${encodeURIComponent(token)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (!data.vip) {
+                        window.location.href = "/nomovies";
+                    }
+                })
+                .catch(() => {
+                    window.location.href = "/nomovies";
+                });
         }
-
-        fetch(`http://node2.hexaverse.hu:8341/check-vip?token=${token}`)
-            .then(res => res.json())
-            .then(data => {
-                if (!data.vip) {
-                    window.location.href = "https://imperius.hu/nomovies.html";
-                }
-            })
-            .catch(() => {
-                window.location.href = "https://imperius.hu/nomovies.html";
-            });
     </script>
-
 
 </body>
 
