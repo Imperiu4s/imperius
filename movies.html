@@ -13,11 +13,12 @@
         <div class="logo">IMPIX</div>
 
         <!-- Discord Login Button -->
-        <a class="discord-login-btn" href="https://discord.com/oauth2/authorize?client_id=1521133959830966517&response_type=code&redirect_uri=http%3A%2F%2Fnode2.hexaverse.hu%3A8341%2Fauth%2Fdiscord%2Fcallback&scope=identify+guilds.members.read+guilds">
+        <a class="discord-login-btn"
+            href="https://discord.com/oauth2/authorize?client_id=1521133959830966517&response_type=code&redirect_uri=http%3A%2F%2Fnode2.hexaverse.hu%3A8341%2Fauth%2Fdiscord%2Fcallback&scope=identify+guilds.members.read+guilds">
             Discord bejelentkezés
         </a>
 
-        
+
         <button class="theme-toggle" id="themeToggle">Téma váltás</button>
 
         <input type="text" id="searchInput" class="search-bar" placeholder="Keresés...">
@@ -83,6 +84,19 @@
                     document.getElementById('loginRequired').style.display = 'block';
                 }
             });
+
+        const isVip = document.cookie.includes("vip=true");
+
+        if (isVip) {
+            // VIP → gomb eltűnik, filmek megjelennek
+            document.getElementById("discord-login-btn").style.display = "none";
+            document.getElementById("movies-section").style.display = "block";
+        } else {
+            // Nem VIP → gomb látszik, filmek rejtve
+            document.getElementById("discord-login-btn").style.display = "block";
+            document.getElementById("movies-section").style.display = "none";
+        }
+
     </script>
 
 </body>
