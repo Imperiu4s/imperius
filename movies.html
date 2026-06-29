@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <title>IMPIX</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">IMPIX</div>
+
+        <!-- Discord Login Button -->
+        <a class="discord-login-btn" href="https://discord.com/oauth2/authorize
+    ?client_id=YOUR_CLIENT_ID
+    &redirect_uri=https%3A%2F%2Fnode2.hexaverse.hu%3A8102%2Fauth%2Fdiscord%2Fcallback
+    &response_type=code
+    &scope=identify%20guilds%20guilds.members.read">
+            Discord bejelentkezés
+        </a>
+
+        
+        <button class="theme-toggle" id="themeToggle">Téma váltás</button>
+
+        <input type="text" id="searchInput" class="search-bar" placeholder="Keresés...">
+        <div id="searchResults" class="search-results"></div>
+    </header>
+
+    <main class="main-content" id="contentArea">
+
+        <!-- Discord nélkül nem látható -->
+        <div id="loginRequired" style="display:none; text-align:center; margin-top:50px;">
+            <h2>A filmek megtekintéséhez Discord bejelentkezés szükséges.</h2>
+            <p>Kérlek jelentkezz be a Discord fiókoddal.</p>
+        </div>
+
+        <!-- Discord bejelentkezés után jelenik meg -->
+        <div id="movieSections" style="display:none;">
+
+            <section class="row">
+                <h2>Ajánlott neked</h2>
+                <div class="row-items" id="recommended-row"></div>
+            </section>
+
+            <section class="row">
+                <h2>Folytasd a nézést</h2>
+                <div class="row-items" id="continue-row"></div>
+            </section>
+
+            <section class="row">
+                <h2>Filmek</h2>
+                <div class="row-items" id="movies-row"></div>
+            </section>
+
+            <section class="row">
+                <h2>Sorozatok</h2>
+                <div class="row-items" id="series-row"></div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- Modal -->
+    <div class="overlay" id="overlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modal-close">✕</button>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+
+    <script>
+        // 🔥 FRONTEND LOGIKA: Discord bejelentkezés ellenőrzése
+        // Ezt a backend tölti ki pl. /api/user endpointból
+        fetch('/api/user')
+            .then(res => res.json())
+            .then(user => {
+                if (user.discordLinked) {
+                    // Discord be van jelentkezve → mutatjuk a filmeket
+                    document.getElementById('movieSections').style.display = 'block';
+                } else {
+                    // Discord nincs bejelentkezve → elrejtjük a filmeket
+                    document.getElementById('loginRequired').style.display = 'block';
+                }
+            });
+    </script>
+
+</body>
+
+</html>
