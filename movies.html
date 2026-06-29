@@ -85,18 +85,42 @@
                 }
             });
 
-        const isVip = document.cookie.includes("vip=true");
+        // Discord OAuth2 URL (ugyanaz, amit már használsz)
+        const discordLoginUrl =
+            "https://discord.com/oauth2/authorize" +
+            "?client_id=1521133959830966517" +
+            "&response_type=code" +
+            "&redirect_uri=" +
+            encodeURIComponent("http://node2.hexaverse.hu:8341/auth/discord/callback") +
+            "&scope=identify%20guilds.members.read%20guilds";
 
-        if (isVip) {
-            // VIP → gomb eltűnik, filmek megjelennek
-            document.getElementById("discord-login-btn").style.display = "none";
-            document.getElementById("movies-section").style.display = "block";
-        } else {
-            // Nem VIP → gomb látszik, filmek rejtve
-            document.getElementById("discord-login-btn").style.display = "block";
-            document.getElementById("movies-section").style.display = "none";
-        }
+        // Gomb kattintás → Discord login
+        document.getElementById("discord-login-btn").addEventListener("click", () => {
+            window.location.href = discordLoginUrl;
+        });
 
+        // VIP státusz lekérdezése a backendről
+        fetch("http://node2.hexaverse.hu:8341/check-vip", {
+            credentials: "include"
+        })
+            .then(res => res.json())
+            .then(data => {
+                const isVip = data.vip === true;
+
+                if (isVip) {
+                    // VIP → gomb eltűnik, filmek megjelennek
+                    document.getElementById("discord-login-btn").style.display = "none";
+                    document.getElementById("movies-section").style.display = "block";
+                } else {
+                    // Nem VIP → gomb látszik, filmek rejtve
+                    document.getElementById("discord-login-btn").style.display = "inline-block";
+                    document.getElementById("movies-section").style.display = "none";
+                }
+            })
+            .catch(err => {
+                console.error("VIP ellenőrzés hiba:", err);
+                // hiba esetén marad a login gomb
+            });
     </script>
 
 </body>
