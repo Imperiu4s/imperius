@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <title>IMPIX – VIP szükséges</title>
+
+    <style>
+        body {
+            background: #05060a;
+            color: #fff;
+            font-family: system-ui, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #c7c7c7;
+        }
+
+        #discord-login-btn {
+            padding: 14px 26px;
+            background: #5865F2;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s ease;
+        }
+
+        #discord-login-btn:hover {
+            background: #4752C4;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>IMPIX VIP hozzáférés szükséges</h1>
+    <p>A filmek és sorozatok megtekintéséhez Discord VIP rang szükséges.</p>
+
+    <button id="discord-login-btn">Discord bejelentkezés</button>
+
+    <script>
+        const discordLoginUrl =
+            "https://discord.com/oauth2/authorize" +
+            "?client_id=1521133959830966517" +
+            "&response_type=code" +
+            "&redirect_uri=" +
+            encodeURIComponent("http://node2.hexaverse.hu:8341/auth/discord/callback") +
+            "&scope=identify%20guilds.members.read%20guilds";
+
+        document.getElementById("discord-login-btn").addEventListener("click", () => {
+            window.location.href = discordLoginUrl;
+        });
+    </script>
+
+</body>
+
+</html>

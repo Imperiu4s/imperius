@@ -12,13 +12,6 @@
     <header class="navbar">
         <div class="logo">IMPIX</div>
 
-        <!-- Discord Login Button -->
-        <a class="discord-login-btn"
-            href="https://discord.com/oauth2/authorize?client_id=1521133959830966517&response_type=code&redirect_uri=http%3A%2F%2Fnode2.hexaverse.hu%3A8341%2Fauth%2Fdiscord%2Fcallback&scope=identify+guilds.members.read+guilds">
-            Discord bejelentkezés
-        </a>
-
-
         <button class="theme-toggle" id="themeToggle">Téma váltás</button>
 
         <input type="text" id="searchInput" class="search-bar" placeholder="Keresés...">
@@ -26,15 +19,8 @@
     </header>
 
     <main class="main-content" id="contentArea">
-
-        <!-- Discord nélkül nem látható -->
-        <div id="loginRequired" style="display:none; text-align:center; margin-top:50px;">
-            <h2>A filmek megtekintéséhez Discord bejelentkezés szükséges.</h2>
-            <p>Kérlek jelentkezz be a Discord fiókoddal.</p>
-        </div>
-
         <!-- Discord bejelentkezés után jelenik meg -->
-        <div id="movieSections" style="display:none;">
+        <div id="movieSections">
 
             <section class="row">
                 <h2>Ajánlott neked</h2>
@@ -71,55 +57,21 @@
     <script src="app.js"></script>
 
     <script>
-        // 🔥 FRONTEND LOGIKA: Discord bejelentkezés ellenőrzése
-        // Ezt a backend tölti ki pl. /api/user endpointból
-        fetch('/api/user')
-            .then(res => res.json())
-            .then(user => {
-                if (user.discordLinked) {
-                    // Discord be van jelentkezve → mutatjuk a filmeket
-                    document.getElementById('movieSections').style.display = 'block';
-                } else {
-                    // Discord nincs bejelentkezve → elrejtjük a filmeket
-                    document.getElementById('loginRequired').style.display = 'block';
-                }
-            });
-
-        // Discord OAuth2 URL (ugyanaz, amit már használsz)
-        const discordLoginUrl =
-            "https://discord.com/oauth2/authorize" +
-            "?client_id=1521133959830966517" +
-            "&response_type=code" +
-            "&redirect_uri=" +
-            encodeURIComponent("http://node2.hexaverse.hu:8341/auth/discord/callback") +
-            "&scope=identify%20guilds.members.read%20guilds";
-
-        // Gomb kattintás → Discord login
-        document.getElementById("discord-login-btn").addEventListener("click", () => {
-            window.location.href = discordLoginUrl;
-        });
-
-        // VIP státusz lekérdezése a backendről
+        // VIP státusz ellenőrzése a backendtől
         fetch("http://node2.hexaverse.hu:8341/check-vip", {
             credentials: "include"
         })
             .then(res => res.json())
             .then(data => {
-                const isVip = data.vip === true;
-
-                if (isVip) {
-                    // VIP → gomb eltűnik, filmek megjelennek
-                    document.getElementById("discord-login-btn").style.display = "none";
-                    document.getElementById("movies-section").style.display = "block";
-                } else {
-                    // Nem VIP → gomb látszik, filmek rejtve
-                    document.getElementById("discord-login-btn").style.display = "inline-block";
-                    document.getElementById("movies-section").style.display = "none";
+                if (!data.vip) {
+                    // Ha nem VIP → átirányítás a nomovies.html-re
+                    window.location.href = "https://imperius.hu/nomovies.html";
                 }
             })
             .catch(err => {
                 console.error("VIP ellenőrzés hiba:", err);
-                // hiba esetén marad a login gomb
+                // Hiba esetén is dobjuk vissza a nomovies.html-re
+                window.location.href = "https://imperius.hu/nomovies.html";
             });
     </script>
 
