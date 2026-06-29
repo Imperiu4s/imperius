@@ -56,6 +56,27 @@
 
     <script src="app.js"></script>
 
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get("token");
+
+        if (!token) {
+            window.location.href = "https://imperius.hu/nomovies.html";
+        }
+
+        fetch(`http://node2.hexaverse.hu:8341/check-vip?token=${token}`)
+            .then(res => res.json())
+            .then(data => {
+                if (!data.vip) {
+                    window.location.href = "https://imperius.hu/nomovies.html";
+                }
+            })
+            .catch(() => {
+                window.location.href = "https://imperius.hu/nomovies.html";
+            });
+    </script>
+
+
 </body>
 
 </html>
