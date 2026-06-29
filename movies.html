@@ -19,7 +19,7 @@
     </header>
 
     <main class="main-content" id="contentArea">
-        <!-- Discord bejelentkezés után jelenik meg -->
+
         <div id="movieSections">
 
             <section class="row">
@@ -55,25 +55,6 @@
     </div>
 
     <script src="app.js"></script>
-
-    <script>
-        // VIP státusz ellenőrzése a backendtől
-        fetch("http://node2.hexaverse.hu:8341/check-vip", {
-            credentials: "include"
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (!data.vip) {
-                    // Ha nem VIP → átirányítás a nomovies.html-re
-                    window.location.href = "https://imperius.hu/nomovies.html";
-                }
-            })
-            .catch(err => {
-                console.error("VIP ellenőrzés hiba:", err);
-                // Hiba esetén is dobjuk vissza a nomovies.html-re
-                window.location.href = "https://imperius.hu/nomovies.html";
-            });
-    </script>
 
 </body>
 
