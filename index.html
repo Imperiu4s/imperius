@@ -4,20 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imperiu4s Community – Karbantartás alatt</title>
-
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
     <style>
-        /* MINDEN kurzor eltüntetése */
         *, body, a, button, input, textarea {
             cursor: none !important;
         }
 
-        /* Egyedi pont kurzor */
         #cursor {
             position: fixed;
             width: 14px;
@@ -31,21 +25,18 @@
             transition: width 0.15s ease, height 0.15s ease;
         }
 
-        /* Hover effektek */
         a:hover ~ #cursor,
         button:hover ~ #cursor {
             width: 24px;
             height: 24px;
         }
 
-        /* Gradient text (kékes) */
         .gradient-text {
             background: linear-gradient(90deg, #00d0ff, #4bb8ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Fade-in */
         .fade {
             opacity: 0;
             transform: translateY(20px);
@@ -57,7 +48,6 @@
             transform: translateY(0);
         }
 
-        /* ÚJ SÖTÉT ŰR-HÁTTÉR (NINCS BENNE LILA) */
         .space-bg {
             position: fixed;
             inset: 0;
@@ -66,7 +56,6 @@
             background: radial-gradient(circle at center, #050508 0%, #020207 40%, #000000 100%);
         }
 
-        /* Sötétkék köd (nebula helyett) */
         .dark-nebula {
             position: absolute;
             width: 200%;
@@ -86,7 +75,6 @@
             100% { transform: translate(-10%, -10%) scale(1); }
         }
 
-        /* Parázs részecskék */
         .ember {
             position: absolute;
             width: 4px;
@@ -97,7 +85,6 @@
             will-change: transform, opacity;
         }
 
-        /* Title animation */
         .title-animate {
             opacity: 0;
             transform: translateY(-10px) scale(0.98);
@@ -115,7 +102,6 @@
             100% { transform: translateY(0) scale(1); }
         }
 
-        /* Discord button glow */
         .discord-btn {
             background: linear-gradient(90deg, #5865F2, #4b55d6);
             box-shadow: 0 0 20px rgba(88, 101, 242, 0.6);
@@ -130,16 +116,13 @@
 
 <body class="bg-[#050509] text-white font-sans overflow-x-hidden">
 
-<!-- Egyedi kurzor -->
 <div id="cursor"></div>
 
-<!-- ÚJ SÖTÉT ŰR-HÁTTÉR -->
 <div class="space-bg">
     <div class="dark-nebula"></div>
     <div id="embers"></div>
 </div>
 
-<!-- MAIN CONTENT -->
 <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 fade">
 
     <h1 class="text-4xl md:text-5xl font-extrabold gradient-text title-animate">
@@ -151,37 +134,31 @@
         Hamarosan visszatérünk egy még modernebb, gyorsabb és biztonságosabb felülettel.
     </p>
 
-    <!-- Discord Button -->
     <a href="https://dc.imperius.hu" target="_blank"
        class="discord-btn mt-10 px-6 py-3 rounded-xl text-lg font-semibold flex items-center gap-3">
         <i class="fa-brands fa-discord text-2xl"></i>
         Csatlakozz a Discord szerverünkhöz
     </a>
 
-    <!-- Status -->
     <div class="mt-12 bg-white/10 backdrop-blur-xl px-6 py-4 rounded-xl border border-white/10">
         <p class="text-gray-300">Karbantartás állapota: <span class="font-bold text-white">Folyamatban</span></p>
     </div>
 
 </section>
 
-<!-- JS -->
 <script>
-    /* Fade-in */
     window.addEventListener("load", () => {
         document.querySelectorAll(".fade").forEach((el, i) => {
             setTimeout(() => el.classList.add("show"), 150 * i);
         });
     });
 
-    /* Custom cursor */
     const cursor = document.getElementById("cursor");
     document.addEventListener("mousemove", (e) => {
         cursor.style.left = e.clientX + "px";
         cursor.style.top = e.clientY + "px";
     });
 
-    /* Parázs részecskék */
     const emberContainer = document.getElementById("embers");
     const emberCount = 25;
 
