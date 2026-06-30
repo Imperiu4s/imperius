@@ -54,19 +54,17 @@
         const params = new URLSearchParams(window.location.search);
         const token = params.get("token");
 
-        if (!token && !localStorage.getItem("discordToken")) {
-            window.location.href = "https://imperius.hu/nomovies.html";
-        }
-
         if (token) {
             localStorage.setItem("discordToken", token);
-
             window.history.replaceState({}, "", "/movies");
         }
 
-        setInterval(() => {
-            const savedToken = localStorage.getItem("discordToken");
+        const savedToken = localStorage.getItem("discordToken");
+        if (!savedToken) {
+            window.location.href = "https://imperius.hu/nomovies.html";
+        }
 
+        setInterval(() => {
             fetch(`http://node2.hexaverse.hu:8341/check-login?token=${encodeURIComponent(savedToken)}`)
                 .then(res => res.json())
                 .then(data => {
@@ -81,8 +79,6 @@
                 });
         }, 10000);
     </script>
-
-
 </body>
 
 </html>
