@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>IMPIX</title>
+    <title>IMPIX – Movies</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -50,16 +50,19 @@
     </div>
 
     <script src="app.js"></script>
+
     <script>
         const params = new URLSearchParams(window.location.search);
-        const token = params.get("token");
+        const tokenFromURL = params.get("token");
 
-        if (token) {
-            localStorage.setItem("discordToken", token);
+        if (tokenFromURL) {
+            localStorage.setItem("discordToken", tokenFromURL);
+
             window.history.replaceState({}, "", "/movies");
         }
 
         const savedToken = localStorage.getItem("discordToken");
+
         if (!savedToken) {
             window.location.href = "https://imperius.hu/nomovies.html";
         }
@@ -79,6 +82,7 @@
                 });
         }, 10000);
     </script>
+
 </body>
 
 </html>
