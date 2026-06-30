@@ -42,29 +42,14 @@
         </div>
     </main>
 
+    <div class="overlay" id="overlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modal-close">✕</button>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
-
-    <!-- VIP ellenőrzés -->
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const token = params.get("token");
-
-        if (!token) {
-            window.location.href = "/nomovies";
-        } else {
-            fetch(`/check-vip?token=${encodeURIComponent(token)}`)
-                .then(res => res.json())
-                .then(data => {
-                    if (!data.vip) {
-                        window.location.href = "/nomovies";
-                    }
-                })
-                .catch(() => {
-                    window.location.href = "/nomovies";
-                });
-        }
-    </script>
-
 </body>
 
 </html>
