@@ -12,7 +12,7 @@
         position: fixed;
         inset: 0;
         backdrop-filter: blur(12px);
-        background: rgba(0, 0, 0, 0.55);
+        background-color: rgba(15, 15, 15, 0.911);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -31,8 +31,8 @@
     }
 
     #passwordBox {
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: var(--bg);
+        border: 1px solid rgba(109, 109, 109, 0.521);
         backdrop-filter: blur(20px);
         padding: 35px;
         border-radius: 16px;
@@ -57,13 +57,13 @@
     #passwordBox h2 {
         margin: 0;
         font-size: 26px;
-        color: #fff;
+        color: var(--text);
         font-weight: 600;
     }
 
     #passwordBox p {
         margin-top: 10px;
-        color: #ddd;
+        color: var(--text);
         font-size: 15px;
     }
 
@@ -74,12 +74,12 @@
         border-radius: 8px;
         border: none;
         font-size: 16px;
-        background: rgba(255, 255, 255, 0.15);
-        color: white;
+        background: rgba(0, 0, 0, 0.15);
+        color: var(--text);
     }
 
     #passwordInput::placeholder {
-        color: #ccc;
+        color: var(--text);
     }
 
     #passwordBtn {
@@ -113,11 +113,10 @@
 </style>
 
 <body>
-
     <div id="passwordOverlay">
         <div id="passwordBox">
             <h2>Belépés szükséges</h2>
-            <p>Ahhoz hogy megtekinthesd film/sorozat ajánlatunkat,<br> írd be a kapott jelszót.</p>
+            <p>Ahhoz hogy megtekinthesd film/sorozat ajánlatunkat, írd be a<br>VIP ranghoz kapott jelszót.</p>
 
             <input type="password" id="passwordInput" placeholder="Jelszó...">
             <button id="passwordBtn">Belépés</button>
@@ -186,10 +185,8 @@
     <script>
         // Elfogadott jelszavak
         const acceptedPasswords = [
-            "alma123",
-            "vip2024",
-            "solaryn",
-            "imperius"
+            "vip1imperius",
+            "vip2gere",
         ];
 
         // DOM elemek
