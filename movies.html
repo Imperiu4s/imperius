@@ -50,14 +50,34 @@
     </div>
 
     <script src="app.js"></script>
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const loggedIn = params.get("loggedin");
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
 
-        if (loggedIn !== "true") {
-            window.location.href = "https://imperius.hu/nomovies.html";
-        }
-    </script>
+    // Ha nincs token → visszadob
+    if (!token) {
+        window.location.href = "https://imperius.hu/nomovies.html";
+    }
+
+    // URL tisztítása
+    window.history.replaceState({}, "", "/movies");
+
+    // Folyamatos login ellenőrzés (10 másodpercenként)
+    setInterval(() => {
+        fetch(`http://node2.hexaverse.hu:8341/check-login?token=${encodeURIComponent(token)}`)
+            .then(res => res.json())
+            .then(data => {
+                if (!data.loggedin) {
+                    // User törölte az appot → AZONNAL visszadob
+                    window.location.href = "https://imperius.hu/nomovies.html";
+                }
+            })
+            .catch(() => {
+                // Hiba esetén is visszadob
+                window.location.href = "https://imperius.hu/nomovies.html";
+            });
+    }, 10000); // 10 másodperc
+</script>
 
 </body>
 
