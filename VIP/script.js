@@ -26,6 +26,7 @@ const movies = [
         year: "2009",
         age: "12+"
     },
+
 ];
 
 const series = [
@@ -113,9 +114,9 @@ const shield = document.getElementById('video-shield');
 function toggleTheme() {
     const body = document.body;
     const themeBtn = document.getElementById('theme-btn');
-    
+
     body.classList.toggle('light-theme');
-    
+
     if (body.classList.contains('light-theme')) {
         themeBtn.innerText = "Sötét mód";
     } else {
@@ -128,7 +129,7 @@ const VALID_PASSWORDS = [
     "Premo2026",
     "MoziEsti99",
     "VendegPass"
-]; 
+];
 
 const LOGIN_EXPIRY_TIME = 3 * 24 * 60 * 60 * 1000;
 
@@ -150,10 +151,29 @@ function initApp() {
         document.body.style.overflow = 'hidden';
         setupLoginListeners();
     }
-    
+
     renderGrid(movies, 'movie-grid', 'movie');
     renderGrid(series, 'series-grid', 'series');
     document.addEventListener('contextmenu', e => e.preventDefault());
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === "F12" || e.keyCode === 123) {
+            e.preventDefault();
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.keyCode === 73)) {
+            e.preventDefault();
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.keyCode === 74)) {
+            e.preventDefault();
+            return false;
+        }
+        if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.keyCode === 85)) {
+            e.preventDefault();
+            return false;
+        }
+    });
 
     if (shield && player) {
         shield.addEventListener('contextmenu', (e) => {
@@ -183,11 +203,11 @@ function checkPassword() {
     const inputField = document.getElementById('password-input');
     const errorMsg = document.getElementById('login-error-msg');
     const enteredPassword = inputField.value.trim();
-    
+
     if (VALID_PASSWORDS.includes(enteredPassword)) {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('loginTime', new Date().getTime().toString());
-        
+
         showMainPage();
     } else {
         errorMsg.classList.remove('hidden');
@@ -200,7 +220,7 @@ function showMainPage() {
     const loginGate = document.getElementById('login-gate');
     const mainNav = document.getElementById('main-nav');
     const mainContent = document.getElementById('main-content');
-    
+
     if (loginGate) loginGate.classList.add('hidden');
     if (mainNav) mainNav.classList.remove('hidden');
     if (mainContent) mainContent.classList.remove('hidden');
@@ -230,7 +250,7 @@ function renderGrid(data, gridId, type) {
         grid.innerHTML = `<div class="no-results">Nincs a keresésnek megfelelő ${type === 'movie' ? 'film' : 'sorozat'}.</div>`;
         return;
     }
-    
+
     data.forEach(item => {
         const div = document.createElement('div');
         div.className = 'card';
@@ -253,28 +273,28 @@ function handleSearch() {
     const searchInput = document.getElementById('search-input');
     const clearBtn = document.getElementById('search-clear-btn');
     const query = searchInput.value.toLowerCase().trim();
-    
+
     if (searchInput.value.length > 0) {
         clearBtn.classList.remove('hidden');
     } else {
         clearBtn.classList.add('hidden');
     }
-    
-    const filteredMovies = movies.filter(movie => 
+
+    const filteredMovies = movies.filter(movie =>
         movie.title.toLowerCase().includes(query)
     );
-    
-    const filteredSeries = series.filter(show => 
+
+    const filteredSeries = series.filter(show =>
         show.title.toLowerCase().includes(query)
     );
-    
+
     renderGrid(filteredMovies, 'movie-grid', 'movie');
     renderGrid(filteredSeries, 'series-grid', 'series');
 }
 
 function clearSearch() {
     const searchInput = document.getElementById('search-input');
-    
+
     searchInput.value = '';
     handleSearch();
     searchInput.focus();
@@ -283,28 +303,28 @@ function clearSearch() {
 
 function openModal(item, type) {
     modal.classList.remove('hidden');
-    
+
     document.body.style.overflow = 'hidden';
-    
+
     document.getElementById('modal-title').innerText = item.title;
     document.getElementById('modal-year').innerText = item.year;
     document.getElementById('modal-age').innerText = item.age;
     document.getElementById('modal-description').innerText = item.description;
-    
+
     const selectorBox = document.getElementById('selector-box');
     const epList = document.getElementById('ep-list');
-    
+
     if (type === 'series') {
         selectorBox.style.display = 'block';
         epList.style.display = 'flex';
-        window.currentActiveSeries = item; 
+        window.currentActiveSeries = item;
 
         selectorBox.innerHTML = `
             <select class="season-select" onchange="changeSeason(this.value)">
                 ${item.seasons.map((s, i) => `<option value="${i}">${s.season}. Évad</option>`).join('')}
             </select>
         `;
-        
+
         updateEpisodeList(item.seasons[0].episodes);
         player.src = item.seasons[0].episodes[0].iframe;
     } else {
@@ -335,7 +355,7 @@ function updateEpisodeList(episodes) {
 function closeModal() {
     modal.classList.add('hidden');
     player.src = '';
-    
+
     document.body.style.overflow = '';
 }
 
