@@ -112,6 +112,16 @@
             box-shadow: 0 0 35px rgba(88, 101, 242, 0.9);
             transform: scale(1.05);
         }
+
+        .movies-btn {
+            background: linear-gradient(90deg, #f25858, #d64b4b);
+            box-shadow: 0 0 20px rgba(242, 88, 88, 0.6);
+            transition: 0.3s ease;
+        }
+        .movies-btn:hover {
+            box-shadow: 0 0 35px rgba(242, 88, 88, 0.9);
+            transform: scale(1.05);
+        }
     </style>
 </head>
 
@@ -125,27 +135,65 @@
 </div>
 
 <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 fade">
-
-    <h1 class="text-4xl md:text-5xl font-extrabold gradient-text title-animate">
-        Az oldal jelenleg karbantartás alatt áll
+    <h1 class="text-5xl md:text-6xl font-extrabold gradient-text title-animate">
+        Imperiu4s Community
     </h1>
 
-    <p class="mt-6 text-gray-300 max-w-xl">
-        Az Imperiu4s Community weboldalát éppen frissítjük és fejlesztjük.
-        Hamarosan visszatérünk egy még modernebb, gyorsabb és biztonságosabb felülettel.
+    <p class="mt-6 text-gray-300 max-w-2xl text-lg">
+        Egy modern, innovatív és folyamatosan fejlődő közösség, ahol a kreativitás,
+        a technológia és a közösségi élmény találkozik.  
+        Csatlakozz hozzánk, és légy része valami igazán különlegesnek.
     </p>
 
-    <a href="https://dc.imperius.hu" target="_blank"
-       class="discord-btn mt-10 px-6 py-3 rounded-xl text-lg font-semibold flex items-center gap-3">
-        <i class="fa-brands fa-discord text-2xl"></i>
-        Csatlakozz a Discord szerverünkhöz
-    </a>
-
-    <div class="mt-12 bg-white/10 backdrop-blur-xl px-6 py-4 rounded-xl border border-white/10">
-        <p class="text-gray-300">Karbantartás állapota: <span class="font-bold text-white">Folyamatban</span></p>
-    </div>
-
+    <a href="https://dc.imperius.hu" target="_blank" class="discord-btn mt-10 px-8 py-4 rounded-xl text-xl font-semibold flex items-center gap-3"><i class="fa-brands fa-discord text-3xl"></i>Belépés a Discord közösségbe</a>
+    <a href="https://imperius.hu/VIP/movies" class="movies-btn mt-10 px-8 py-4 rounded-xl text-xl font-semibold flex items-center gap-3"><i class="fa-solid fa-video"></i>IMPIX</a>
 </section>
+
+<section class="py-24 text-center fade">
+    <h2 class="text-4xl font-bold gradient-text">Rólam</h2>
+    <p class="mt-6 max-w-3xl mx-auto text-gray-300 text-lg">
+        Célom az, hogy egy olyan platformot biztosítsak,
+        ahol a tagok együtt fejlődhetnek, tanulhatnak, játszhatnak és alkothatnak.
+        A közösségem alapja a tisztelet, a kreativitás és a folyamatos innováció.
+    </p>
+</section>
+
+<section class="py-24 fade">
+    <h2 class="text-4xl font-bold text-center gradient-text">Mit kínálunk?</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-16 px-10">
+        <div class="bg-white/10 backdrop-blur-xl p-8 rounded-xl border border-white/10 text-center">
+            <i class="fa-solid fa-rocket text-4xl text-cyan-400"></i>
+            <h3 class="text-2xl font-bold mt-4">Innováció</h3>
+            <p class="text-gray-300 mt-2">Folyamatos fejlesztések, új rendszerek és modern megoldások. VIP tagság vásárlása prémium funkciók elérésének érdekében.</p>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-xl p-8 rounded-xl border border-white/10 text-center">
+            <i class="fa-solid fa-users text-4xl text-cyan-400"></i>
+            <h3 class="text-2xl font-bold mt-4">Közösség</h3>
+            <p class="text-gray-300 mt-2">Egy aktív, segítőkész és barátságos közösség minden tag számára. Minden héten aktív nyereményjáték.</p>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-xl p-8 rounded-xl border border-white/10 text-center">
+            <i class="fa-solid fa-shield-halved text-4xl text-cyan-400"></i>
+            <h3 class="text-2xl font-bold mt-4">Biztonság</h3>
+            <p class="text-gray-300 mt-2">Modern moderációs rendszerek és biztonságos környezet. Szabályszegők, el innen!</p>
+        </div>
+    </div>
+</section>
+
+<section class="py-24 text-center fade">
+    <h2 class="text-4xl font-bold gradient-text">Kövess engem</h2>
+
+    <div class="flex justify-center gap-10 mt-10 text-4xl">
+        <a href="https://discord.com/invite/YPstkSXdN4" class="hover:text-cyan-400 transition"><i class="fa-brands fa-discord"></i></a>
+        <a href="https://www.youtube.com/@imperiu4s" class="hover:text-cyan-400 transition"><i class="fa-brands fa-youtube"></i></a>
+    </div>
+</section>
+
+<footer class="py-12 text-center bg-white/5 backdrop-blur-xl border-t border-white/10 fade">
+    <p class="text-gray-300">™ 2026 Imperiu4s Community - Maded by Imperiu4s</p>
+</footer>
 
 <script>
     window.addEventListener("load", () => {
