@@ -229,7 +229,8 @@ const VALID_PASSWORDS = [
     { password: "VendegPass",   expireDate: "2026-07-11" }  // Példa egy gyorsan lejáró jelszóra
 ];
 
-const LOGIN_EXPIRY_TIME = 3 * 24 * 60 * 60 * 1000;
+// 1 nap ezredmásodpercben (24 óra * 60 perc * 60 másodperc * 1000 milliszekundum)
+const LOGIN_EXPIRY_TIME = 1 * 24 * 60 * 60 * 1000;
 
 function initApp() {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
