@@ -751,3 +751,75 @@ body.light-theme #search-input:focus {
 body.light-theme .dropdown-menu {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
+
+
+
+
+
+
+
+
+
+
+
+/* Egyedi felugró ablak háttere */
+.custom-alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 99999;
+    
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    
+    /* Átállítva 0.5 másodpercre */
+    transition: opacity 0.5s ease, backdrop-filter 0.5s ease, visibility 0.5s ease;
+}
+
+/* Maga a figyelmeztető doboz */
+.custom-alert-box {
+    background: #181818;
+    border: 1px solid #333;
+    border-top: 4px solid #E50914;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 450px;
+    padding: 25px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    font-family: Arial, sans-serif;
+    margin-top: 40px;
+    
+    opacity: 0;
+    /* Átállítva 0.5 másodpercre */
+    transition: opacity 0.5s ease; 
+}
+
+/* AKTÍV ÁLLAPOT */
+.custom-alert-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(5px);
+}
+
+.custom-alert-overlay.active .custom-alert-box {
+    opacity: 1;
+}
+
+/* Szövegek és gombok maradnak */
+.custom-alert-header { color: #999; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 15px; }
+.custom-alert-logo { color: #E50914; font-weight: bold; }
+.custom-alert-body { color: #fff; font-size: 1.05rem; line-height: 1.5; margin-bottom: 25px; }
+.custom-alert-close-btn { background: #E50914; color: white; border: none; padding: 12px 30px; font-size: 1rem; font-weight: bold; border-radius: 4px; cursor: pointer; transition: background 0.2s, transform 0.1s; width: 100%; }
+.custom-alert-close-btn:hover { background: #b80710; }
+.custom-alert-close-btn:active { transform: scale(0.98); }

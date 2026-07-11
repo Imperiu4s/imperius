@@ -97,6 +97,26 @@ const movies = [
         year: "2009",
         age: "13+"
     },
+    {
+        id: "movie9",
+        title: "Amerika kapitány: Az első bosszúálló",
+        description: "Amerika Kapitány szuperkatonává válik, és legyőzi a HYDRA vezetőjét, miközben megmenti a világot. Önfeláldozása után évtizedekkel később a modern korban ébred fel.",
+        thumbnail: "../assets/akelsobosszuallo.png",
+        isNew: true,
+        iframe: "https://videa.hu/player?v=gieXTQt3qIVhqxsW",
+        year: "2011",
+        age: "12+"
+    },
+    {
+        id: "movie10",
+        title: "Amerika kapitány: Szép új világ",
+        description: "Amerika Kapitány szuperkatonává válik, és legyőzi a HYDRA vezetőjét, miközben megmenti a világot. Önfeláldozása után évtizedekkel később a modern korban ébred fel.",
+        thumbnail: "../assets/akszepujvilag.png",
+        isNew: true,
+        iframe: "https://videa.hu/player?v=Ys4NCuliTxIzpdId",
+        year: "2025",
+        age: "12+"
+    },
 ];
 
 const series = [
@@ -105,7 +125,7 @@ const series = [
         title: "Stranger Things",
         description: "Egy fiatal fiú eltűnését követően a kisváros lakói titkos kísérletekre, rémisztő természetfeletti erőkre és egy furcsa kislányra derítenek fényt.",
         thumbnail: "../assets/stranger_things.png",
-        isNew: true,
+        isNew: false,
         year: "2025",
         age: "16+",
         seasons: [
@@ -256,9 +276,19 @@ const VALID_PASSWORDS = [
     { password: "Premo2026", expireDate: "2026-12-31" }, // Ez az év végéig jó
     { password: "MoziEsti99", expireDate: "2026-07-20" }, // Ez hamarosan lejár
     { password: "VendegPass", expireDate: "2026-07-11" }  // Példa egy gyorsan lejáró jelszóra
+
+    // A TOVÁBBIAKBAN EZT ADATBÁZISBAN MÓDOSÍTSD!!!
 ];
 
 const LOGIN_EXPIRY_TIME = 1 * 24 * 60 * 60 * 1000;
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
 
 function initApp() {
     checkSessionAndPassword();
@@ -329,67 +359,81 @@ function checkSessionAndPassword() {
     const mainNav = document.getElementById('main-nav');
     const mainContent = document.getElementById('main-content');
 
-    if (isLoggedIn && loginLoginTime) {
-        const isSessionExpired = (currentTime - parseInt(loginLoginTime)) > LOGIN_EXPIRY_TIME;
+    // Alapvető felület-kezelő belső függvény a kiléptetéshez
+    const forceLogout = (isPasswordExpired) => {
+        const msg = isPasswordExpired
+            ? "Az előfizetésed lejárt! Fizess elő újból és regisztráld újra jelszavad hogy használhasd a streaming szolgáltatásunkat!"
+            : "A napi biztonsági munkameneted lejárt. Kérjük, jelentkezz be újra!";
 
-        let isPasswordExpired = false;
-        if (lockedPassword) {
-            const foundPasswordObj = VALID_PASSWORDS.find(p => p.password === lockedPassword);
-            if (foundPasswordObj) {
-                const expiration = new Date(foundPasswordObj.expireDate + "T23:59:59").getTime();
-                if (currentTime > expiration) {
-                    isPasswordExpired = true;
-                }
-            } else {
-                isPasswordExpired = true;
-            }
-        }
-
-        if (isSessionExpired || isPasswordExpired) {
-            localStorage.clear();
+        // Előbb feldobjuk az IMPIX alertet, és CSAK az OK gombra kattintás után takarítunk ki és zárunk le mindent!
+        showImpixAlert(msg, () => {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('loginTime');
+            localStorage.removeItem('locked_password');
 
             if (typeof closeModal === "function") {
                 closeModal();
             }
 
             document.body.style.overflow = 'hidden';
-
             if (loginGate) loginGate.classList.remove('hidden');
             if (mainNav) mainNav.classList.add('hidden');
             if (mainContent) mainContent.classList.add('hidden');
 
             setupLoginListeners();
+        });
+    };
 
-            if (isPasswordExpired) {
-                alert("Az előfizetésed lejárt! Fizess elő újból és regisztráld újra jelszavad hogy használhasd a streaming szolgáltatásunkat!");
-            } else {
-                alert("A napi biztonsági munkameneted lejárt. Kérjük, jelentkezz be újra!");
-            }
-        } else {
-            document.body.style.overflow = 'auto';
-            if (loginGate) loginGate.classList.add('hidden');
-            if (mainNav) mainNav.classList.remove('hidden');
-            if (mainContent) mainContent.classList.remove('hidden');
-
-            if (typeof showMainPage === "function") {
-                showMainPage();
-            }
+    if (isLoggedIn && loginLoginTime && lockedPassword) {
+        // 1. Első körben megnézzük, hogy a 24 órás helyi munkamenet lejárt-e
+        const isSessionExpired = (currentTime - parseInt(loginLoginTime)) > LOGIN_EXPIRY_TIME;
+        if (isSessionExpired) {
+            forceLogout(false);
+            return;
         }
+
+        // 2. Ha a munkamenet még jó, lekérjük a jelszó friss állapotát KÖZVETLENÜL A FIREBASE-BŐL
+        const passwordRef = ref(database, 'passwords/' + lockedPassword);
+        get(passwordRef).then((snapshot) => {
+            const passwordData = snapshot.val();
+
+            // Ha a jelszót időközben törölték a Firebase-ből
+            if (!passwordData) {
+                forceLogout(true);
+                return;
+            }
+
+            // Dátum ellenőrzése helyi idő szerint a Firebase-ből kapott érték alapján
+            const [year, month, day] = passwordData.expireDate.split('-');
+            const expiration = new Date(year, month - 1, day, 23, 59, 59).getTime();
+
+            // Ha a Firebase szerint lejárt a jelszó
+            if (currentTime > expiration) {
+                forceLogout(true);
+            } else {
+                // Minden rendben, biztosítjuk a hozzáférést
+                document.body.style.overflow = 'auto';
+                if (loginGate) loginGate.classList.add('hidden');
+                if (mainNav) mainNav.classList.remove('hidden');
+                if (mainContent) mainContent.classList.remove('hidden');
+
+                if (typeof showMainPage === "function") {
+                    showMainPage();
+                }
+            }
+        }).catch((error) => {
+            console.error("Háttér ellenőrzési hiba:", error);
+            // Adatbázis hiba esetén (pl. nincs net) nem rúgjuk ki azonnal, hogy ne szakadjon meg a film
+        });
+
     } else {
+        // Ha egyáltalán nincs bejelentkezve
         document.body.style.overflow = 'hidden';
         if (loginGate) loginGate.classList.remove('hidden');
         if (mainNav) mainNav.classList.add('hidden');
-        if (mainContent) mainContent.classList.add('hidden');
+        if (mainContent) mainContent.append('hidden');
         setupLoginListeners();
     }
-}
-
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
 }
 
 
@@ -407,14 +451,18 @@ function checkPassword() {
     const errorMsg = document.getElementById('login-error-msg');
     const enteredPassword = inputField.value.trim();
 
-    // Hivatkozás a konkrét jelszóra a Firebase adatbázisban
+    if (enteredPassword === '') {
+        errorMsg.classList.remove('hidden');
+        inputField.focus();
+        return;
+    }
+
+    const userDeviceToken = getOrCreateDeviceId();
     const passwordRef = ref(database, 'passwords/' + enteredPassword);
 
-    // Adatok lekérése az adatbázisból
     get(passwordRef).then((snapshot) => {
         const passwordData = snapshot.val();
 
-        // 1. Ha a jelszó egyáltalán nem létezik az adatbázisban
         if (!passwordData) {
             errorMsg.classList.remove('hidden');
             inputField.value = '';
@@ -423,51 +471,106 @@ function checkPassword() {
         }
 
         const currentTime = new Date().getTime();
-        const expiration = new Date(passwordData.expireDate + "T23:59:59").getTime();
+        const [year, month, day] = passwordData.expireDate.split('-');
+        const expiration = new Date(year, month - 1, day, 23, 59, 59).getTime();
 
-        // 2. Csekkoljuk, hogy lejárt-e az előfizetés
         if (currentTime > expiration) {
-            alert("Az előfizetésed lejárt! Fizess elő újból és regisztráld újra jelszavad hogy használhasd a streaming szolgáltatásunkat!");
-            inputField.value = '';
+            // Előbb megmutatjuk az ablakot, és CSAK az OK gomb megnyomása UTÁN ürítjük a mezőt!
+            showImpixAlert("Az előfizetésed lejárt! Fizess elő újból és regisztráld újra jelszavad hogy használhasd a streaming szolgáltatásunkat!", () => {
+                inputField.value = '';
+                inputField.focus();
+            });
             return;
         }
 
-        // 3. Egyedi eszköz token generálása ennek a böngészőnek (ha még nincs neki)
-        let userDeviceToken = localStorage.getItem('device_token');
-        if (!userDeviceToken) {
-            userDeviceToken = 'device_' + Math.random().toString(36).substring(2, 11);
-            localStorage.setItem('device_token', userDeviceToken);
-        }
-
-        // 4. Ha a jelszót már aktiválta valaki más egy másik gépen
         if (passwordData.usedBy && passwordData.usedBy !== userDeviceToken) {
-            alert("Sajnos ezt a jelszót már egy másik felhasználó aktiválta és használja!");
-            inputField.value = '';
-            return;
+            // A szöveg után átadjuk a callback függvényt () => { ... }
+            showImpixAlert("Sajnos ezt a jelszót már egy másik felhasználó aktiválta és használja!", () => {
+                inputField.value = '';
+                inputField.focus();
+            });
+            return; // Megállítjuk a checkPassword további futását, míg rá nem nyomnak a gombra
         }
 
-        // 5. Ha a jelszó még teljesen szűz, most elmentjük a Firebase-be, hogy ehhez a géphez tartozik
         if (!passwordData.usedBy) {
             update(passwordRef, {
                 usedBy: userDeviceToken
             });
         }
 
-        // 6. Sikeres belépés (a meglévő logikád szerint)
+        // 5. Sikeres belépés mentése a böngészőbe
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('loginTime', currentTime.toString());
         localStorage.setItem('locked_password', enteredPassword);
 
-        showMainPage();
+        // JAVÍTÁS: Azonnal eltüntetjük a login-kaput és feloldjuk a főoldalt!
+        errorMsg.classList.add('hidden');
+        document.body.style.overflow = 'auto'; // Görgetés feloldása
+
+        const loginGate = document.getElementById('login-gate');
+        const mainNav = document.getElementById('main-nav');
+        const mainContent = document.getElementById('main-content');
+
+        if (loginGate) loginGate.classList.add('hidden'); // Kapu elrejtése
+        if (mainNav) mainNav.classList.remove('hidden');   // Navigáció mutatása
+        if (mainContent) mainContent.classList.remove('hidden'); // Tartalom mutatása
+
+        // Most már tisztán a kész főoldal felett úszik be a sikerüzenet!
+        showImpixAlert("Sikeres bejelentkezés! Üdvözlünk az IMPIX streaming platformon!", () => {
+            showMainPage(); // Az OK gomb után biztosra megyünk, hogy minden renderelődött
+        });
+
     }).catch((error) => {
         console.error("Adatbázis hiba:", error);
-        alert("Hiba történt az ellenőrzés során. Próbáld újra később!");
+        showImpixAlert("Hiba történt az ellenőrzés során. Próbáld újra később!", () => {
+            inputField.value = '';
+            inputField.focus();
+        });
     });
+}
+
+window.checkPassword = checkPassword;
+
+
+function getOrCreateDeviceId() {
+    // Összegyűjtjük a gép és a böngésző fix, egyedi jellemzőit
+    const screenSpecs = window.screen.width + 'x' + window.screen.height + 'x' + window.screen.colorDepth;
+    const userAgent = navigator.userAgent;
+    const language = navigator.language;
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const cores = navigator.hardwareConcurrency || 2;
+
+    // WebGL (videókártya) specifikus infók lekérése, ami gépenként eltérő
+    let gpu = "";
+    try {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (gl) {
+            const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+            gpu = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+        }
+    } catch (e) {
+        gpu = "no-gpu";
+    }
+
+    // Összefűzzük a nyers adatokat
+    const rawFingerprint = `${screenSpecs}-${userAgent}-${language}-${timeZone}-${cores}-${gpu}`;
+
+    // Csinálunk belőle egy egyszerű, de egyedi számsort (Hashing)
+    let hash = 0;
+    for (let i = 0; i < rawFingerprint.length; i++) {
+        const char = rawFingerprint.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Konvertálás 32 bites egésszé
+    }
+
+    // Visszaadjuk a fix eszköz ID-t (pl: device_fp_15487215)
+    return 'device_fp_' + Math.abs(hash);
 }
 
 // NAGYON FONTOS: Mivel a script tetején importokat használunk, a függvény "bezáródik" a modulba.
 // Ahhoz, hogy a HTML-ben lévő gomb (onclick="checkPassword()") továbbra is elérje, ki kell tennünk a globális ablakra:
-window.checkPassword = checkPassword;
+
 
 function showMainPage() {
     const loginGate = document.getElementById('login-gate');
@@ -481,10 +584,19 @@ function showMainPage() {
 }
 
 function handleLogout() {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('loginTime');
-    document.body.style.overflow = 'hidden';
-    window.location.reload();
+    // 1. Feldobjuk a fentről becsúszó IMPIX értesítést
+    showImpixAlert("Sikeresen kijelentkeztél! Várunk vissza legközelebb is.", () => {
+
+        // 2. CSAK az OK gomb megnyomása után töröljük az adatokat és frissítünk
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('loginTime');
+        localStorage.removeItem('locked_password'); // Ezt is takarítjuk a biztonság kedvéért
+
+        document.body.style.overflow = 'hidden';
+
+        // Oldal újratöltése: mivel töröltük a kulcsokat, a kapu fogadja majd
+        window.location.reload();
+    });
 }
 
 function renderGrid(data, gridId, type) {
@@ -510,7 +622,7 @@ function renderGrid(data, gridId, type) {
             </div>
         `;
         const actualType = item.seasons ? 'series' : type;
-        
+
         div.onclick = () => openModal(item, actualType);
         grid.appendChild(div);
     });
@@ -523,16 +635,16 @@ function handleSearch() {
 
     // Megkeressük az Újdonságok teljes konténerét
     // (Győződj meg róla, hogy a HTML-ben a cím és a hozzá tartozó sáv egy közös id="news-section" dobozban van!)
-    const newsSection = document.getElementById('new-releases-grid'); 
+    const newsSection = document.getElementById('new-releases-grid');
 
     if (searchInput.value.length > 0) {
         clearBtn.classList.remove('hidden');
         // Kereséskor elrejtjük a teljes szekciót a címmel együtt
-        if (newsSection) newsSection.classList.add('hidden'); 
+        if (newsSection) newsSection.classList.add('hidden');
     } else {
         clearBtn.classList.add('hidden');
         // Ha üres a kereső, a teljes szekció (cím + tartalom) újra megjelenik
-        if (newsSection) newsSection.classList.remove('hidden'); 
+        if (newsSection) newsSection.classList.remove('hidden');
     }
 
     const filteredMovies = movies.filter(movie =>
@@ -637,6 +749,44 @@ function closeModal() {
     document.body.style.overflow = '';
 }
 
+
+function showImpixAlert(message, callback = null) {
+    const alertOverlay = document.getElementById('impix-alert');
+    const alertMessage = document.getElementById('impix-alert-message');
+    const alertBtn = document.getElementById('impix-alert-btn');
+
+    if (!alertOverlay || !alertMessage || !alertBtn) return;
+
+    alertMessage.innerText = message;
+    
+    // 1. Biztosítjuk, hogy a hidden ne zavarjon be
+    alertOverlay.classList.remove('hidden');
+    alertOverlay.classList.remove('active');
+
+    // 2. KIKÉNYSZERÍTETT REFLOW TRÜKK: 
+    // Megállítjuk a böngészőt egy mikroszekundumra, hogy észlelje az alap (0-s) állapotot
+    void alertOverlay.offsetWidth;
+
+    // 3. Most adjuk hozzá az aktív osztályt, így már KÖTELEZŐ elindítania a 0.5s animációt
+    alertOverlay.classList.add('active');
+
+    const closeAlert = () => {
+        alertOverlay.classList.remove('active');
+        alertBtn.removeEventListener('click', closeAlert); 
+        
+        // Megvárjuk a 0.5 másodperces elhalványulást
+        setTimeout(() => {
+            alertOverlay.classList.add('hidden');
+            if (typeof callback === 'function') {
+                callback();
+            }
+        }, 500); 
+    };
+
+    alertBtn.addEventListener('click', closeAlert);
+}
+
+window.showImpixAlert = showImpixAlert;
 window.checkPassword = checkPassword;
 window.toggleTheme = toggleTheme;
 window.closeModal = closeModal;

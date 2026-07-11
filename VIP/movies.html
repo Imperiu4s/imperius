@@ -17,10 +17,10 @@
             <h1 class="login-logo">IMPIX</h1>
             <h2>Bejelentkezés</h2>
             <p>Az Imperiussss Community VIP tagjainak lehetőségük van filmekhez/sorozatokhoz hozzáférniük. Csatlakozz te
-                is: <a href="https://discord.gg/invite/YPstkSXdN4" target="_blank" class="dclink">dc.imperius.hu</a></p>
+                is: <a href="https://discord.gg/nnAnbgt9sz" target="_blank" class="dclink">dc.imperius.hu</a></p>
             <p class="login-error hidden" id="login-error-msg">Helytelen jelszó! Próbáld újra.</p>
             <div class="input-group">
-                <input type="password" id="password-input" placeholder="VIP Jelszó">
+                <input type="password" id="password-input" placeholder="Jelszó">
             </div>
             <button class="login-btn" onclick="checkPassword()">Belépés</button>
         </div>
@@ -83,6 +83,20 @@
     </div>
 
     <script src="script.js"></script>
+
+    <div id="impix-alert" class="custom-alert-overlay">
+        <div class="custom-alert-box">
+            <div class="custom-alert-header">
+                <span class="custom-alert-logo">IMPIX</span> ÉRTESÍTÉS
+            </div>
+            <div id="impix-alert-message" class="custom-alert-body">
+                Ide jön majd az üzenet...
+            </div>
+            <div class="custom-alert-footer">
+                <button id="impix-alert-btn" class="custom-alert-close-btn">OK</button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
