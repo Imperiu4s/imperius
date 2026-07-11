@@ -117,6 +117,36 @@ const movies = [
         year: "2025",
         age: "12+"
     },
+    {
+        id: "movie11",
+        title: "Női szervek",
+        description: "Az FBI-ügynök Sarah Ashburn és a bostoni rendőrnő Shannon Mullins teljesen különbözőek, ezért ki nem állhatják egymást. Egy veszélyes drogbáró elfogásához azonban össze kell fogniuk, és a közös nyomozás során megtanulják tisztelni egymást.",
+        thumbnail: "../assets/női_szervek.png",
+        isNew: true,
+        iframe: "https://videa.hu/player?v=4HSRvSpmcCE6fHZb",
+        year: "2013",
+        age: "16+"
+    },
+    {
+        id: "movie12",
+        title: "Apáca show",
+        description: "Whoopi Goldberg egy bárénekesnőt alakít, aki a maffia elől egy kolostorba menekül. Ott apácának álcázva váratlanul felvirágoztatja a kórust, de a sikere veszélybe sodorja a titkát.",
+        thumbnail: "../assets/apácashow1.png",
+        isNew: true,
+        iframe: "https://videa.hu/player?v=m47PT2v2exM4EnvO",
+        year: "1992",
+        age: "6+"
+    },
+    {
+        id: "movie13",
+        title: "Apáca show 2.",
+        description: "Deloris ismét Mary Clarence bőrébe bújik, hogy egy iskolában zenetanárként problémás diákokból kórust formáljon, és megmentse az intézményt a bezárástól.",
+        thumbnail: "../assets/apácashow2.png",
+        isNew: true,
+        iframe: "https://videa.hu/player?v=dbfIjPOfN6ewejwD",
+        year: "1993",
+        age: "6+"
+    },
 ];
 
 const series = [
