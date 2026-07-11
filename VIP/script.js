@@ -498,26 +498,30 @@ function checkPassword() {
             });
         }
 
-        // 5. Sikeres belépés mentése a böngészőbe
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('loginTime', currentTime.toString());
         localStorage.setItem('locked_password', enteredPassword);
 
-        // JAVÍTÁS: Azonnal eltüntetjük a login-kaput és feloldjuk a főoldalt!
-        errorMsg.classList.add('hidden');
+        // Biztonságos elemkezelés: csak akkor módosítunk, ha létezik az elem
+        const errorMsg = document.getElementById('error-message'); // Ellenőrizd az ID-t!
+        if (errorMsg) errorMsg.classList.add('hidden');
+
         document.body.style.overflow = 'auto'; // Görgetés feloldása
 
         const loginGate = document.getElementById('login-gate');
         const mainNav = document.getElementById('main-nav');
         const mainContent = document.getElementById('main-content');
 
-        if (loginGate) loginGate.classList.add('hidden'); // Kapu elrejtése
-        if (mainNav) mainNav.classList.remove('hidden');   // Navigáció mutatása
-        if (mainContent) mainContent.classList.remove('hidden'); // Tartalom mutatása
+        if (loginGate) loginGate.classList.add('hidden');
+        if (mainNav) mainNav.classList.remove('hidden');
+        if (mainContent) mainContent.classList.remove('hidden');
 
-        // Most már tisztán a kész főoldal felett úszik be a sikerüzenet!
+        // Meghívjuk az alertet. Ha a háttérben valamiért mégis elakadt a showMainPage,
+        // az OK gomb megnyomása után kényszerítjük a megjelenítést.
         showImpixAlert("Sikeres bejelentkezés! Üdvözlünk az IMPIX streaming platformon!", () => {
-            showMainPage(); // Az OK gomb után biztosra megyünk, hogy minden renderelődött
+            if (typeof showMainPage === "function") {
+                showMainPage();
+            }
         });
 
     }).catch((error) => {
@@ -758,7 +762,7 @@ function showImpixAlert(message, callback = null) {
     if (!alertOverlay || !alertMessage || !alertBtn) return;
 
     alertMessage.innerText = message;
-    
+
     // 1. Biztosítjuk, hogy a hidden ne zavarjon be
     alertOverlay.classList.remove('hidden');
     alertOverlay.classList.remove('active');
@@ -772,15 +776,15 @@ function showImpixAlert(message, callback = null) {
 
     const closeAlert = () => {
         alertOverlay.classList.remove('active');
-        alertBtn.removeEventListener('click', closeAlert); 
-        
+        alertBtn.removeEventListener('click', closeAlert);
+
         // Megvárjuk a 0.5 másodperces elhalványulást
         setTimeout(() => {
             alertOverlay.classList.add('hidden');
             if (typeof callback === 'function') {
                 callback();
             }
-        }, 500); 
+        }, 500);
     };
 
     alertBtn.addEventListener('click', closeAlert);
