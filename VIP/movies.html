@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="impixlogo.ico">
     <link rel="stylesheet" href="movies.css">
+    <script type="module" src="script.js"></script>
     <title>Impix | imperius.hu</title>
 </head>
 
@@ -15,8 +16,9 @@
         <div class="login-box">
             <h1 class="login-logo">IMPIX</h1>
             <h2>Bejelentkezés</h2>
-            <p>Az Imperiussss Community VIP tagjainak lehetőségük van filmekhez/sorozatokhoz hozzáférniük. Csatlakozz te is: <a href="https://discord.gg/invite/YPstkSXdN4" target="_blank" class="dclink">dc.imperius.hu</a></p>
-            <p class="login-error hidden" id="login-error-msg">Helytelen VIP jelszó! Próbáld újra.</p>
+            <p>Az Imperiussss Community VIP tagjainak lehetőségük van filmekhez/sorozatokhoz hozzáférniük. Csatlakozz te
+                is: <a href="https://discord.gg/invite/YPstkSXdN4" target="_blank" class="dclink">dc.imperius.hu</a></p>
+            <p class="login-error hidden" id="login-error-msg">Helytelen jelszó! Próbáld újra.</p>
             <div class="input-group">
                 <input type="password" id="password-input" placeholder="VIP Jelszó">
             </div>
@@ -35,6 +37,11 @@
     </nav>
 
     <main class="container">
+        <section class="category-section">
+            <h2 class="category-title">Újdonságok az Impixen</h2>
+            <div id="new-releases-grid" class="grid"></div>
+        </section>
+
         <section class="section-group">
             <h2 class="category-title">Filmek</h2>
             <div id="movie-grid" class="grid"></div>

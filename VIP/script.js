@@ -1,9 +1,28 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+
+// Ez követi közvetlenül az importokat
+const firebaseConfig = {
+    apiKey: "AIzaSyBesK1asoVKe8c70E84L-Ar5wTJQ_PDfHo",
+    authDomain: "impix-db.firebaseapp.com",
+    projectId: "impix-db",
+    storageBucket: "impix-db.firebasestorage.app",
+    messagingSenderId: "280647199300",
+    appId: "1:280647199300:web:9cd729557e8c752a90ea11",
+    measurementId: "G-2DQKCRBNJJ"
+};
+
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+
 const movies = [
     {
         id: "movie1",
         title: "K-Pop Démon Vadászok",
         description: "Amikor Rumi, Mira és Zoey K-pop-szupersztárok koncertje nem telt házas, a titkos képességeiket használják, hogy megvédjék rajongóikat a természetfeletti fenyegetésektől.",
         thumbnail: "../assets/kpop.png",
+        isNew: false,
         iframe: "https://videa.hu/player?v=zYJUZZ0GBZjuZJPf",
         year: "2025",
         age: "10+"
@@ -13,6 +32,7 @@ const movies = [
         title: "A kém",
         description: "Susan Cooper, a háttérben dolgozó CIA-elemző kénytelen terepre lépni, hogy megakadályozza egy nukleáris fegyver eladását, miközben veszélyes bűnözőket és kettős játékot játszó ügynököket próbál leleplezni.",
         thumbnail: "../assets/a_kém.png",
+        isNew: true,
         iframe: "https://videa.hu/player?v=IdWDoVY6krd7gBkM",
         year: "2015",
         age: "16+"
@@ -22,6 +42,7 @@ const movies = [
         title: "365 nap",
         description: "Egy nő egy befolyásos maffiafőnök áldozatául esik, aki elrabolja, és egy évet ad neki, hogy beleszeressen.",
         thumbnail: "../assets/365nap.png",
+        isNew: false,
         iframe: "https://videa.hu/player?v=YAeRUsWR2JC81m1S",
         year: "2020",
         age: "16+"
@@ -31,6 +52,7 @@ const movies = [
         title: "365 nap: Ma",
         description: "Laura és Massimo visszatér, és erősebb, mint valaha. De Massimo családi kötelékei és a Laura szívére pályázó titokzatos férfi megnehezítik a szerelmesek életét.",
         thumbnail: "../assets/365napma.png",
+        isNew: false,
         iframe: "https://videa.hu/player?v=XuCWhGFzj17ezFnM",
         year: "2022",
         age: "16+"
@@ -40,6 +62,7 @@ const movies = [
         title: "365 nap: Egy újabb nap",
         description: "Laura és Massimo kapcsolata egy hajszálon függ, miközben próbálják megoldani bizalmi problémáikat, Nacho pedig kitartóan azon ügyködik, hogy elszakítsa őket egymástól.",
         thumbnail: "../assets/365napegyújabbnap.png",
+        isNew: false,
         iframe: "https://videa.hu/player?v=cN8MNjmVFJK7sUmk",
         year: "2022",
         age: "18+"
@@ -49,6 +72,7 @@ const movies = [
         title: "Sokkal több mint testőr",
         description: "Egy felhajtást kerülő testőrnek életben kell tartania egy sztártanút – aki történetesen egy lobbanékony bérgyilkos –, hogy vallomást tehessen egy brutális diktátor ellen.",
         thumbnail: "../assets/sokkal_több_mint_testőr_1.png",
+        isNew: false,
         iframe: "https://videa.hu/player?v=shuMFmlaiNE41Wlh",
         year: "2017",
         age: "16+"
@@ -58,6 +82,7 @@ const movies = [
         title: "Sokkal több mint testőr 2",
         description: "A testőr Michael Bryce Darius Kincaid bérgyilkossal és annak Sonia nevű feleségével közösen belekeveredik egy globális összeesküvésbe ebben a fergeteges vígjátékban.",
         thumbnail: "../assets/sokkal_több_mint_testőr_2.png",
+        isNew: false,
         iframe: "https://videa.hu/player?v=tEuZPQAFuaoAPAqF",
         year: "2021",
         age: "16+"
@@ -67,6 +92,7 @@ const movies = [
         title: "Nász-ajánlat",
         description: "Egy könyvkiadó idegesítő főszerkesztője megtudja, hogy elutasították a vízumkérelmét, és ki fogják toloncolni az országból, ezért rákényszeríti asszisztensét, hogy feleségül vegye.",
         thumbnail: "../assets/nász_ajánlat.png",
+        isNew: false,
         iframe: "https://videa.hu/player?v=gI6XQUhA7wIyxVZY",
         year: "2009",
         age: "13+"
@@ -79,6 +105,7 @@ const series = [
         title: "Stranger Things",
         description: "Egy fiatal fiú eltűnését követően a kisváros lakói titkos kísérletekre, rémisztő természetfeletti erőkre és egy furcsa kislányra derítenek fényt.",
         thumbnail: "../assets/stranger_things.png",
+        isNew: true,
         year: "2025",
         age: "16+",
         seasons: [
@@ -96,6 +123,7 @@ const series = [
         title: "Ginny és Georgia",
         description: "A szabad szellemű Georgia két gyerekével, Ginnyvel és Austinnal északra költözik, hogy új életet kezdjenek, azonban az új kezdethez vezető út rögösnek bizonyul.",
         thumbnail: "../assets/ginny_and_georgia.png",
+        isNew: true,
         year: "2025",
         age: "16+",
         seasons: [
@@ -151,6 +179,7 @@ const series = [
         title: "Modern család",
         description: "A modern család három különböző család életét mutatja be egy dokumentumfilmes stáb kameráján keresztül. Ennek a bonyolult, zűrös, szerető és modern családnak Jay Pritchett a feje.",
         thumbnail: "../assets/modern_család.png",
+        isNew: false,
         year: "2009",
         age: "12+",
         seasons: [
@@ -224,35 +253,28 @@ function toggleTheme() {
 
 const VALID_PASSWORDS = [
     { password: "VIP@Imperius", expireDate: "2026-08-15" }, // Ez a jelszó 2026. augusztust 15-ig él
-    { password: "Premo2026",    expireDate: "2026-12-31" }, // Ez az év végéig jó
-    { password: "MoziEsti99",   expireDate: "2026-07-20" }, // Ez hamarosan lejár
-    { password: "VendegPass",   expireDate: "2026-07-11" }  // Példa egy gyorsan lejáró jelszóra
+    { password: "Premo2026", expireDate: "2026-12-31" }, // Ez az év végéig jó
+    { password: "MoziEsti99", expireDate: "2026-07-20" }, // Ez hamarosan lejár
+    { password: "VendegPass", expireDate: "2026-07-11" }  // Példa egy gyorsan lejáró jelszóra
 ];
 
-// 1 nap ezredmásodpercben (24 óra * 60 perc * 60 másodperc * 1000 milliszekundum)
 const LOGIN_EXPIRY_TIME = 1 * 24 * 60 * 60 * 1000;
 
 function initApp() {
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    const loginLoginTime = localStorage.getItem('loginTime');
-    const currentTime = new Date().getTime();
+    checkSessionAndPassword();
+    setInterval(checkSessionAndPassword, 10000);
 
-    if (isLoggedIn && loginLoginTime) {
-        if (currentTime - parseInt(loginLoginTime) > LOGIN_EXPIRY_TIME) {
-            localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('loginTime');
-            document.body.style.overflow = 'hidden';
-            setupLoginListeners();
-        } else {
-            showMainPage();
-        }
-    } else {
-        document.body.style.overflow = 'hidden';
-        setupLoginListeners();
-    }
+    const newMovies = movies.filter(item => item.isNew === true);
+    const newSeries = series.filter(item => item.isNew === true);
+    const allNewReleases = [...newMovies, ...newSeries];
 
+    shuffleArray(movies);
+    shuffleArray(series);
+
+    renderGrid(allNewReleases, 'new-releases-grid', 'movie');
     renderGrid(movies, 'movie-grid', 'movie');
     renderGrid(series, 'series-grid', 'series');
+
     document.addEventListener('contextmenu', e => e.preventDefault());
 
     document.addEventListener('keydown', function (e) {
@@ -284,7 +306,7 @@ function initApp() {
             shield.style.display = 'none';
             setTimeout(() => {
                 shield.style.display = 'block';
-            }, 3000);
+            }, 650);
         });
     }
 
@@ -295,6 +317,81 @@ function initApp() {
         }
     });
 }
+
+
+function checkSessionAndPassword() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const loginLoginTime = localStorage.getItem('loginTime');
+    const lockedPassword = localStorage.getItem('locked_password');
+    const currentTime = new Date().getTime();
+
+    const loginGate = document.getElementById('login-gate');
+    const mainNav = document.getElementById('main-nav');
+    const mainContent = document.getElementById('main-content');
+
+    if (isLoggedIn && loginLoginTime) {
+        const isSessionExpired = (currentTime - parseInt(loginLoginTime)) > LOGIN_EXPIRY_TIME;
+
+        let isPasswordExpired = false;
+        if (lockedPassword) {
+            const foundPasswordObj = VALID_PASSWORDS.find(p => p.password === lockedPassword);
+            if (foundPasswordObj) {
+                const expiration = new Date(foundPasswordObj.expireDate + "T23:59:59").getTime();
+                if (currentTime > expiration) {
+                    isPasswordExpired = true;
+                }
+            } else {
+                isPasswordExpired = true;
+            }
+        }
+
+        if (isSessionExpired || isPasswordExpired) {
+            localStorage.clear();
+
+            if (typeof closeModal === "function") {
+                closeModal();
+            }
+
+            document.body.style.overflow = 'hidden';
+
+            if (loginGate) loginGate.classList.remove('hidden');
+            if (mainNav) mainNav.classList.add('hidden');
+            if (mainContent) mainContent.classList.add('hidden');
+
+            setupLoginListeners();
+
+            if (isPasswordExpired) {
+                alert("Az előfizetésed lejárt! Fizess elő újból és regisztráld újra jelszavad hogy használhasd a streaming szolgáltatásunkat!");
+            } else {
+                alert("A napi biztonsági munkameneted lejárt. Kérjük, jelentkezz be újra!");
+            }
+        } else {
+            document.body.style.overflow = 'auto';
+            if (loginGate) loginGate.classList.add('hidden');
+            if (mainNav) mainNav.classList.remove('hidden');
+            if (mainContent) mainContent.classList.remove('hidden');
+
+            if (typeof showMainPage === "function") {
+                showMainPage();
+            }
+        }
+    } else {
+        document.body.style.overflow = 'hidden';
+        if (loginGate) loginGate.classList.remove('hidden');
+        if (mainNav) mainNav.classList.add('hidden');
+        if (mainContent) mainContent.classList.add('hidden');
+        setupLoginListeners();
+    }
+}
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
 
 function setupLoginListeners() {
     const passInput = document.getElementById('password-input');
@@ -310,33 +407,67 @@ function checkPassword() {
     const errorMsg = document.getElementById('login-error-msg');
     const enteredPassword = inputField.value.trim();
 
-    // Megkeressük a beírt jelszót a listánkban
-    const foundPasswordObj = VALID_PASSWORDS.find(p => p.password === enteredPassword);
+    // Hivatkozás a konkrét jelszóra a Firebase adatbázisban
+    const passwordRef = ref(database, 'passwords/' + enteredPassword);
 
-    if (foundPasswordObj) {
-        // Lekérjük a mai dátumot és a jelszó lejárati dátumát időbélyegként (timestamp)
-        const today = new Date().getTime();
-        const expiration = new Date(foundPasswordObj.expireDate).getTime();
+    // Adatok lekérése az adatbázisból
+    get(passwordRef).then((snapshot) => {
+        const passwordData = snapshot.val();
 
-        // Ha a mai nap már későbbi, mint a lejárati idő, akkor elutasítjuk
-        if (today > expiration) {
+        // 1. Ha a jelszó egyáltalán nem létezik az adatbázisban
+        if (!passwordData) {
+            errorMsg.classList.remove('hidden');
+            inputField.value = '';
+            inputField.focus();
+            return;
+        }
+
+        const currentTime = new Date().getTime();
+        const expiration = new Date(passwordData.expireDate + "T23:59:59").getTime();
+
+        // 2. Csekkoljuk, hogy lejárt-e az előfizetés
+        if (currentTime > expiration) {
             alert("Az előfizetésed lejárt! Fizess elő újból és regisztráld újra jelszavad hogy használhasd a streaming szolgáltatásunkat!");
             inputField.value = '';
             return;
         }
 
-        // Ha még nem járt le, sikeres belépés
+        // 3. Egyedi eszköz token generálása ennek a böngészőnek (ha még nincs neki)
+        let userDeviceToken = localStorage.getItem('device_token');
+        if (!userDeviceToken) {
+            userDeviceToken = 'device_' + Math.random().toString(36).substring(2, 11);
+            localStorage.setItem('device_token', userDeviceToken);
+        }
+
+        // 4. Ha a jelszót már aktiválta valaki más egy másik gépen
+        if (passwordData.usedBy && passwordData.usedBy !== userDeviceToken) {
+            alert("Sajnos ezt a jelszót már egy másik felhasználó aktiválta és használja!");
+            inputField.value = '';
+            return;
+        }
+
+        // 5. Ha a jelszó még teljesen szűz, most elmentjük a Firebase-be, hogy ehhez a géphez tartozik
+        if (!passwordData.usedBy) {
+            update(passwordRef, {
+                usedBy: userDeviceToken
+            });
+        }
+
+        // 6. Sikeres belépés (a meglévő logikád szerint)
         localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('loginTime', new Date().getTime().toString());
+        localStorage.setItem('loginTime', currentTime.toString());
+        localStorage.setItem('locked_password', enteredPassword);
 
         showMainPage();
-    } else {
-        // Ha nem is létezik ilyen jelszó
-        errorMsg.classList.remove('hidden');
-        inputField.value = '';
-        inputField.focus();
-    }
+    }).catch((error) => {
+        console.error("Adatbázis hiba:", error);
+        alert("Hiba történt az ellenőrzés során. Próbáld újra később!");
+    });
 }
+
+// NAGYON FONTOS: Mivel a script tetején importokat használunk, a függvény "bezáródik" a modulba.
+// Ahhoz, hogy a HTML-ben lévő gomb (onclick="checkPassword()") továbbra is elérje, ki kell tennünk a globális ablakra:
+window.checkPassword = checkPassword;
 
 function showMainPage() {
     const loginGate = document.getElementById('login-gate');
@@ -378,7 +509,9 @@ function renderGrid(data, gridId, type) {
                 </div>
             </div>
         `;
-        div.onclick = () => openModal(item, type);
+        const actualType = item.seasons ? 'series' : type;
+        
+        div.onclick = () => openModal(item, actualType);
         grid.appendChild(div);
     });
 }
@@ -388,10 +521,18 @@ function handleSearch() {
     const clearBtn = document.getElementById('search-clear-btn');
     const query = searchInput.value.toLowerCase().trim();
 
+    // Megkeressük az Újdonságok teljes konténerét
+    // (Győződj meg róla, hogy a HTML-ben a cím és a hozzá tartozó sáv egy közös id="news-section" dobozban van!)
+    const newsSection = document.getElementById('new-releases-grid'); 
+
     if (searchInput.value.length > 0) {
         clearBtn.classList.remove('hidden');
+        // Kereséskor elrejtjük a teljes szekciót a címmel együtt
+        if (newsSection) newsSection.classList.add('hidden'); 
     } else {
         clearBtn.classList.add('hidden');
+        // Ha üres a kereső, a teljes szekció (cím + tartalom) újra megjelenik
+        if (newsSection) newsSection.classList.remove('hidden'); 
     }
 
     const filteredMovies = movies.filter(movie =>
@@ -496,4 +637,12 @@ function closeModal() {
     document.body.style.overflow = '';
 }
 
+window.checkPassword = checkPassword;
+window.toggleTheme = toggleTheme;
+window.closeModal = closeModal;
+window.handleLogout = handleLogout;
+window.handleSearch = handleSearch;
+window.clearSearch = clearSearch;
+window.selectSeason = selectSeason;
+window.toggleDropdown = toggleDropdown;
 initApp();
