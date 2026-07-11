@@ -147,6 +147,26 @@ const movies = [
         year: "1993",
         age: "6+"
     },
+    {
+        id: "movie14",
+        title: "Tavaszi szél",
+        description: "A dokumentumfilm Magyar Péter politikai mozgalmának születését követi, egy éven át bemutatva a kampányokat és a nyilvánosság előtt eddig nem látott személyes pillanatokat.",
+        thumbnail: "../assets/tavasziszél.png",
+        isNew: true,
+        iframe: "https://videa.hu/player?v=HMg9KIc43gwM4fm3",
+        year: "2026",
+        age: "12+"
+    },
+    {
+        id: "movie15",
+        title: "Randiguru",
+        description: "Egy jóképű New York-i randiguru tőle szokatlan módon őrülten belehabarodik egy okos és cinikus riporterbe, aki immunisnak tűnik a sármjára.",
+        thumbnail: "../assets/randiguru.png",
+        isNew: true,
+        iframe: "https://videa.hu/player?v=68lVVGrtMDuDZoTK",
+        year: "2005",
+        age: "13+"
+    },
 ];
 
 const series = [
