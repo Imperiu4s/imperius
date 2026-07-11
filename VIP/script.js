@@ -264,29 +264,10 @@ const series = [
                 episodes: [
                     { id: "s4s1e1", title: "1. rész", iframe: "https://videa.hu/player?v=4l3dutbyvSyPMDEC" },
                     { id: "s4s1e2", title: "2. rész", iframe: "https://videa.hu/player?v=0mdmy7ZtYmfWXVDY" },
-                    { id: "s4s1e3", title: "3. rész", iframe: "https://videa.hu/player?v=fJ73CyaQoCRhZpfd" },
-                    { id: "s4s1e4", title: "4. rész", iframe: "https://videa.hu/player?v=lf8okFRC47gTnS6u" },
-                    { id: "s4s1e5", title: "5. rész", iframe: "https://videa.hu/player?v=YlkKPbNqSPe3q4zs" },
-                    { id: "s4s1e6", title: "6. rész", iframe: "https://videa.hu/player?v=lgAdqXeMMVTmRUk4" },
-                    { id: "s4s1e7", title: "7. rész", iframe: "https://videa.hu/player?v=tWmrK2EzpUsVLs8p" },
-                    { id: "s4s1e8", title: "8. rész", iframe: "https://videa.hu/player?v=zFINp66VXLeyfP82" },
-                    { id: "s4s1e9", title: "9. rész", iframe: "https://videa.hu/player?v=4TEvvsVD3EijQoCk" },
-                    { id: "s4s1e10", title: "10. rész", iframe: "https://videa.hu/player?v=MO1CvTWz4uJUHfpe" }
-                ]
-            },
-            {
-                season: 2,
-                episodes: [
-                    { id: "s4s2e1", title: "1. rész", iframe: "https://videa.hu/player?v=ksBPcWpeVf3wTSAL" },
-                    { id: "s4s2e2", title: "2. rész", iframe: "https://videa.hu/player?v=HV3CQ4pQrpAQLVDp" },
-                    { id: "s4s2e3", title: "3. rész", iframe: "https://videa.hu/player?v=CgHjq7tccrAoA5Zw" },
-                    { id: "s4s2e4", title: "4. rész", iframe: "https://videa.hu/player?v=Djwna2eQLjKwkbHG" },
-                    { id: "s4s2e5", title: "5. rész", iframe: "https://videa.hu/player?v=OHr5S4C2vtrV9peD" },
-                    { id: "s4s2e6", title: "6. rész", iframe: "https://videa.hu/player?v=R4lmiWhnbxJcnldZ" },
-                    { id: "s4s2e7", title: "7. rész", iframe: "https://videa.hu/player?v=DkNsaRqk4j7TqRPv" },
-                    { id: "s4s2e8", title: "8. rész", iframe: "https://videa.hu/player?v=RYGxID3qd4wBcGQY" },
-                    { id: "s4s2e9", title: "9. rész", iframe: "https://videa.hu/player?v=Fh5y2Leqs1jD9GXA" },
-                    { id: "s4s2e10", title: "10. rész", iframe: "https://videa.hu/player?v=cffLj9zXLWT80Fgs" }
+                    { id: "s4s1e3", title: "3. rész", iframe: "https://videa.hu/player?v=Ecmj8Wf6jcgOttNd" },
+                    { id: "s4s1e4", title: "4. rész", iframe: "https://videa.hu/player?v=wrySxYYRbR1qNsho" },
+                    { id: "s4s1e5", title: "5. rész", iframe: "https://videa.hu/player?v=Ah2P6LWAaySrZuY5" },
+                    { id: "s4s1e6", title: "6. rész", iframe: "https://videa.hu/player?v=MdQtrmZDdyi92Fh0" }
                 ]
             }
         ]
