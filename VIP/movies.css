@@ -784,6 +784,7 @@ body.light-theme .dropdown-menu {
     
     /* Átmenet (0.5 másodperc) */
     transition: opacity 0.5s ease, backdrop-filter 0.5s ease, visibility 0.5s ease;
+	overscroll-behavior: contain;
 }
 
 /* Maga a figyelmeztető doboz */

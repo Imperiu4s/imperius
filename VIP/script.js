@@ -249,6 +249,47 @@ const series = [
                 ]
             }
         ]
+    },
+    {
+        id: "series4",
+        title: "Kémbarátok",
+        description: "Egy NSA-ügynök megbízást kap, hogy összekötőként működjön a brit kormányzati kommunikációs központ kiberbűnözés elleni részlegénél, és hamar ellenszenvessé teszi az egység vezetőjét pimasz stílusával és azzal a hajlamával, hogy megpróbálja átvenni a hatalmat.",
+        thumbnail: "../assets/kémbarátok.png",
+        isNew: true,
+        year: "2020",
+        age: "14+",
+        seasons: [
+            {
+                season: 1,
+                episodes: [
+                    { id: "s4s1e1", title: "1. rész", iframe: "https://videa.hu/player?v=4l3dutbyvSyPMDEC" },
+                    { id: "s4s1e2", title: "2. rész", iframe: "https://videa.hu/player?v=0mdmy7ZtYmfWXVDY" },
+                    { id: "s4s1e3", title: "3. rész", iframe: "https://videa.hu/player?v=fJ73CyaQoCRhZpfd" },
+                    { id: "s4s1e4", title: "4. rész", iframe: "https://videa.hu/player?v=lf8okFRC47gTnS6u" },
+                    { id: "s4s1e5", title: "5. rész", iframe: "https://videa.hu/player?v=YlkKPbNqSPe3q4zs" },
+                    { id: "s4s1e6", title: "6. rész", iframe: "https://videa.hu/player?v=lgAdqXeMMVTmRUk4" },
+                    { id: "s4s1e7", title: "7. rész", iframe: "https://videa.hu/player?v=tWmrK2EzpUsVLs8p" },
+                    { id: "s4s1e8", title: "8. rész", iframe: "https://videa.hu/player?v=zFINp66VXLeyfP82" },
+                    { id: "s4s1e9", title: "9. rész", iframe: "https://videa.hu/player?v=4TEvvsVD3EijQoCk" },
+                    { id: "s4s1e10", title: "10. rész", iframe: "https://videa.hu/player?v=MO1CvTWz4uJUHfpe" }
+                ]
+            },
+            {
+                season: 2,
+                episodes: [
+                    { id: "s4s2e1", title: "1. rész", iframe: "https://videa.hu/player?v=ksBPcWpeVf3wTSAL" },
+                    { id: "s4s2e2", title: "2. rész", iframe: "https://videa.hu/player?v=HV3CQ4pQrpAQLVDp" },
+                    { id: "s4s2e3", title: "3. rész", iframe: "https://videa.hu/player?v=CgHjq7tccrAoA5Zw" },
+                    { id: "s4s2e4", title: "4. rész", iframe: "https://videa.hu/player?v=Djwna2eQLjKwkbHG" },
+                    { id: "s4s2e5", title: "5. rész", iframe: "https://videa.hu/player?v=OHr5S4C2vtrV9peD" },
+                    { id: "s4s2e6", title: "6. rész", iframe: "https://videa.hu/player?v=R4lmiWhnbxJcnldZ" },
+                    { id: "s4s2e7", title: "7. rész", iframe: "https://videa.hu/player?v=DkNsaRqk4j7TqRPv" },
+                    { id: "s4s2e8", title: "8. rész", iframe: "https://videa.hu/player?v=RYGxID3qd4wBcGQY" },
+                    { id: "s4s2e9", title: "9. rész", iframe: "https://videa.hu/player?v=Fh5y2Leqs1jD9GXA" },
+                    { id: "s4s2e10", title: "10. rész", iframe: "https://videa.hu/player?v=cffLj9zXLWT80Fgs" }
+                ]
+            }
+        ]
     }
 ];
 
@@ -359,13 +400,11 @@ function checkSessionAndPassword() {
     const mainNav = document.getElementById('main-nav');
     const mainContent = document.getElementById('main-content');
 
-    // Alapvető felület-kezelő belső függvény a kiléptetéshez
     const forceLogout = (isPasswordExpired) => {
         const msg = isPasswordExpired
             ? "Az előfizetésed lejárt! Fizess elő újból és regisztráld újra jelszavad hogy használhasd a streaming szolgáltatásunkat!"
             : "A napi biztonsági munkameneted lejárt. Kérjük, jelentkezz be újra!";
 
-        // Előbb feldobjuk az IMPIX alertet, és CSAK az OK gombra kattintás után takarítunk ki és zárunk le mindent!
         showImpixAlert(msg, () => {
             localStorage.removeItem('isLoggedIn');
             localStorage.removeItem('loginTime');
@@ -385,34 +424,44 @@ function checkSessionAndPassword() {
     };
 
     if (isLoggedIn && loginLoginTime && lockedPassword) {
-        // 1. Első körben megnézzük, hogy a 24 órás helyi munkamenet lejárt-e
         const isSessionExpired = (currentTime - parseInt(loginLoginTime)) > LOGIN_EXPIRY_TIME;
         if (isSessionExpired) {
             forceLogout(false);
             return;
         }
 
-        // 2. Ha a munkamenet még jó, lekérjük a jelszó friss állapotát KÖZVETLENÜL A FIREBASE-BŐL
         const passwordRef = ref(database, 'passwords/' + lockedPassword);
         get(passwordRef).then((snapshot) => {
             const passwordData = snapshot.val();
 
-            // Ha a jelszót időközben törölték a Firebase-ből
             if (!passwordData) {
                 forceLogout(true);
                 return;
             }
 
-            // Dátum ellenőrzése helyi idő szerint a Firebase-ből kapott érték alapján
             const [year, month, day] = passwordData.expireDate.split('-');
             const expiration = new Date(year, month - 1, day, 23, 59, 59).getTime();
 
-            // Ha a Firebase szerint lejárt a jelszó
             if (currentTime > expiration) {
                 forceLogout(true);
             } else {
-                // Minden rendben, biztosítjuk a hozzáférést
-                document.body.style.overflow = 'auto';
+                // --- JAVÍTÁS: CSAK AKKOR ADJUK VISSZA A GÖRGETÉST, HA NINCS NYITVA MODAL ---
+                const modal = document.getElementById('modal');
+                const isModalOpen = modal && (modal.style.display === 'block' || modal.classList.contains('active') || !modal.classList.contains('hidden'));
+
+                if (isModalOpen) {
+                    // Ha nyitva van a film, a háttérnek KÖTELEZŐ hiddennek maradnia!
+                    document.body.style.overflow = 'hidden';
+                    const mainContent = document.getElementById('main-content');
+                    if (mainContent) mainContent.style.overflow = 'hidden';
+                } else {
+                    // Ha nincs nyitva semmilyen film, akkor mehet az auto
+                    document.body.style.overflow = 'auto';
+                    const mainContent = document.getElementById('main-content');
+                    if (mainContent) mainContent.style.overflow = 'auto';
+                }
+                // ----------------------------------------------------------------------
+
                 if (loginGate) loginGate.classList.add('hidden');
                 if (mainNav) mainNav.classList.remove('hidden');
                 if (mainContent) mainContent.classList.remove('hidden');
@@ -423,11 +472,9 @@ function checkSessionAndPassword() {
             }
         }).catch((error) => {
             console.error("Háttér ellenőrzési hiba:", error);
-            // Adatbázis hiba esetén (pl. nincs net) nem rúgjuk ki azonnal, hogy ne szakadjon meg a film
         });
 
     } else {
-        // Ha egyáltalán nincs bejelentkezve
         document.body.style.overflow = 'hidden';
         if (loginGate) loginGate.classList.remove('hidden');
         if (mainNav) mainNav.classList.add('hidden');
@@ -584,7 +631,6 @@ function showMainPage() {
     if (loginGate) loginGate.classList.add('hidden');
     if (mainNav) mainNav.classList.remove('hidden');
     if (mainContent) mainContent.classList.remove('hidden');
-    document.body.style.overflow = '';
 }
 
 function handleLogout() {
@@ -706,6 +752,11 @@ function openModal(item, type) {
     document.getElementById('modal-age').innerText = item.age;
     document.getElementById('modal-description').innerText = item.description;
 
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) {
+        mainContent.style.overflow = 'hidden';
+    }
+
     const selectorBox = document.getElementById('selector-box');
     const epList = document.getElementById('ep-list');
 
@@ -750,7 +801,17 @@ function updateEpisodeList(episodes) {
 function closeModal() {
     modal.classList.add('hidden');
     player.src = '';
-    document.body.style.overflow = '';
+
+    const loginGate = document.getElementById('login-gate');
+    const mainContent = document.getElementById('main-content');
+
+    if (loginGate && !loginGate.classList.contains('hidden')) {
+        document.body.style.overflow = 'hidden';
+        if (mainContent) mainContent.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
+        if (mainContent) mainContent.style.overflow = 'auto';
+    }
 }
 
 
@@ -763,16 +824,15 @@ function showImpixAlert(message, callback = null) {
 
     alertMessage.innerText = message;
 
-    // 1. Biztosítjuk, hogy a hidden ne zavarjon be
     alertOverlay.classList.remove('hidden');
     alertOverlay.classList.remove('active');
 
-    // 2. KIKÉNYSZERÍTETT REFLOW TRÜKK: 
-    // Megállítjuk a böngészőt egy mikroszekundumra, hogy észlelje az alap (0-s) állapotot
-    void alertOverlay.offsetWidth;
+    void alertOverlay.offsetWidth; // Reflow az animációnak
 
-    // 3. Most adjuk hozzá az aktív osztályt, így már KÖTELEZŐ elindítania a 0.5s animációt
     alertOverlay.classList.add('active');
+
+    // JS TILTÁS: Amikor a modal megnyílik, a külső görgetést azonnal lekapcsoljuk
+    document.body.style.overflow = 'hidden';
 
     const closeAlert = () => {
         alertOverlay.classList.remove('active');
@@ -781,6 +841,17 @@ function showImpixAlert(message, callback = null) {
         // Megvárjuk a 0.5 másodperces elhalványulást
         setTimeout(() => {
             alertOverlay.classList.add('hidden');
+
+            // JS VISSZAÁLLÍTÁS: Megnézzük, hogy a login gate kint van-e még
+            const loginGate = document.getElementById('login-gate');
+            if (loginGate && !loginGate.classList.contains('hidden')) {
+                // Ha a login fül még aktív, a külső oldal továbbra is maradjon letiltva
+                document.body.style.overflow = 'hidden';
+            } else {
+                // Ha már sikeresen bent vagyunk a főoldalon, visszaadjuk a görgetést
+                document.body.style.overflow = 'auto';
+            }
+
             if (typeof callback === 'function') {
                 callback();
             }
