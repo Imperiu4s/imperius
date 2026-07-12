@@ -615,39 +615,23 @@ window.checkPassword = checkPassword;
 
 
 function getOrCreateDeviceId() {
-    // Összegyűjtjük a gép és a böngésző fix, egyedi jellemzőit
-    const screenSpecs = window.screen.width + 'x' + window.screen.height + 'x' + window.screen.colorDepth;
-    const userAgent = navigator.userAgent;
-    const language = navigator.language;
-    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const cores = navigator.hardwareConcurrency || 2;
+    // 1. Megnézzük, hogy a böngésző tárolójában van-e már elmentett eszköz ID
+    let deviceId = localStorage.getItem('impix_device_id');
 
-    // WebGL (videókártya) specifikus infók lekérése, ami gépenként eltérő
-    let gpu = "";
-    try {
-        const canvas = document.createElement('canvas');
-        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-        if (gl) {
-            const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-            gpu = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-        }
-    } catch (e) {
-        gpu = "no-gpu";
+    // 2. Ha még nincs (első belépés ezen a gépen/böngészőben)
+    if (!deviceId) {
+        // Generálunk egy teljesen egyedi, véletlenszerű karaktersorozatot (UUID stílusban)
+        const randomString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        const timestamp = new Date().getTime();
+        
+        deviceId = 'impix_device_' + randomString + '_' + timestamp;
+
+        // Ezt most elmentjük a gépén örökre (túléli az újraindítást, böngésző bezárást)
+        localStorage.setItem('impix_device_id', deviceId);
     }
 
-    // Összefűzzük a nyers adatokat
-    const rawFingerprint = `${screenSpecs}-${userAgent}-${language}-${timeZone}-${cores}-${gpu}`;
-
-    // Csinálunk belőle egy egyszerű, de egyedi számsort (Hashing)
-    let hash = 0;
-    for (let i = 0; i < rawFingerprint.length; i++) {
-        const char = rawFingerprint.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash; // Konvertálás 32 bites egésszé
-    }
-
-    // Visszaadjuk a fix eszköz ID-t (pl: device_fp_15487215)
-    return 'device_fp_' + Math.abs(hash);
+    // 3. Visszaadjuk a fix azonosítót
+    return deviceId;
 }
 
 // NAGYON FONTOS: Mivel a script tetején importokat használunk, a függvény "bezáródik" a modulba.
