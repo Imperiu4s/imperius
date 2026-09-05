@@ -1,0 +1,17 @@
+# Clean URLs: serve foo.html for a request to /foo, without the
+# .html ever showing up in the address bar.
+RewriteEngine On
+
+# If someone requests a .html URL directly, redirect to the clean
+# version (keeps a single canonical URL per page for SEO).
+RewriteCond %{THE_REQUEST} \s/+([^.]+)\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# Serve the matching .html file for a clean-URL request, without
+# changing what's shown in the address bar.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+ErrorDocument 404 /404.html

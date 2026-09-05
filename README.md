@@ -81,6 +81,10 @@ azelőtt, hogy a YouTube-lejátszó ténylegesen betöltött volna (ez
 néhány tized másodpercig tarthat), a kattintás nem vész el — a
 lejátszás automatikusan elindul, amint a lejátszó készen áll.
 
+Hangerőszabályzó is tartozik hozzá (csúszka + némítás gomb) — a
+beállítást böngészőnként megjegyzi (`localStorage`), tehát
+visszatéréskor ugyanott folytatódik, ahol hagytad.
+
 Ha a zene nem szólal meg, a widget alján megjelenik egy hibaüzenet és
 egy közvetlen YouTube-link — két valós ok szokott állni emögött:
 1. **A videó tulajdonosa letiltotta a beágyazott lejátszást** (gyakori
