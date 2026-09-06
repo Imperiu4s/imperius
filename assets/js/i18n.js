@@ -49,6 +49,9 @@ window.IMPERIUS_I18N = {
     now_playing_error_generic: 'A videó nem játszható le itt.',
     now_playing_error_timeout: 'A beágyazott lejátszó nem tudott elindulni — lehet, hogy egy hirdetésblokkoló vagy adatvédelmi bővítmény blokkolja.',
     now_playing_error_link: 'Megnyitás a YouTube-on',
+    now_playing_aria_mute: 'Némítás',
+    now_playing_aria_unmute: 'Némítás feloldása',
+    now_playing_aria_volume: 'Hangerő',
 
     videos_eyebrow: 'YouTube',
     videos_heading: 'Legújabb videók',
@@ -189,6 +192,9 @@ window.IMPERIUS_I18N = {
     now_playing_error_generic: "This video can't be played here.",
     now_playing_error_timeout: "The embedded player couldn't start — an ad blocker or privacy extension might be blocking it.",
     now_playing_error_link: 'Open on YouTube',
+    now_playing_aria_mute: 'Mute',
+    now_playing_aria_unmute: 'Unmute',
+    now_playing_aria_volume: 'Volume',
 
     videos_eyebrow: 'YouTube',
     videos_heading: 'Latest videos',

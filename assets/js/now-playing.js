@@ -31,6 +31,10 @@
   var timeEl = root.querySelector('[data-now-playing-time]');
   var frameTarget = root.querySelector('[data-now-playing-frame]');
   var errorEl = root.querySelector('[data-now-playing-error]');
+  var volumeSlider = root.querySelector('[data-now-playing-volume]');
+  var muteBtn = root.querySelector('[data-now-playing-mute]');
+  var iconVolOn = root.querySelector('.icon-vol-on');
+  var iconVolOff = root.querySelector('.icon-vol-off');
 
   function currentLang() {
     var l = document.documentElement.getAttribute('data-lang');
@@ -84,6 +88,29 @@
   var pendingPlay = false; // set if Play is clicked before the API/player is ready
   var progressTimer = null;
 
+  // Remembered per-browser via localStorage (no server involved) so a
+  // returning visitor gets their last volume back automatically.
+  var savedVolume = 80;
+  var savedMuted = false;
+  try {
+    var vRaw = localStorage.getItem('imperius-player-volume');
+    if (vRaw !== null) savedVolume = Math.min(100, Math.max(0, parseInt(vRaw, 10) || 0));
+    savedMuted = localStorage.getItem('imperius-player-muted') === '1';
+  } catch (e) {}
+
+  function paintVolumeSlider(value) {
+    if (!volumeSlider) return;
+    volumeSlider.value = value;
+    volumeSlider.style.backgroundImage = 'linear-gradient(to right, var(--accent) ' + value + '%, transparent ' + value + '%)';
+  }
+  function setMuteIcon(muted) {
+    if (iconVolOn) iconVolOn.hidden = muted;
+    if (iconVolOff) iconVolOff.hidden = !muted;
+    if (muteBtn) muteBtn.setAttribute('aria-label', muted ? (dict().now_playing_aria_unmute || 'Unmute') : (dict().now_playing_aria_mute || 'Mute'));
+  }
+  paintVolumeSlider(savedVolume);
+  setMuteIcon(savedMuted);
+
   function tickProgress() {
     if (!player || typeof player.getCurrentTime !== 'function') return;
     var cur = player.getCurrentTime() || 0;
@@ -114,6 +141,8 @@
       events: {
         onReady: function () {
           playerReady = true;
+          player.setVolume(savedVolume);
+          if (savedMuted) player.mute();
           if (pendingPlay) { pendingPlay = false; player.playVideo(); }
         },
         onStateChange: function (e) {
@@ -166,4 +195,36 @@
       resetProgress();
     });
   }
+
+  if (volumeSlider) {
+    volumeSlider.addEventListener('input', function () {
+      var value = parseInt(volumeSlider.value, 10) || 0;
+      paintVolumeSlider(value);
+      savedVolume = value;
+      try { localStorage.setItem('imperius-player-volume', String(value)); } catch (e) {}
+      if (playerReady) {
+        player.setVolume(value);
+        // Dragging the slider up from 0 is the universal "I want sound
+        // again" gesture — unmute so the new level is actually heard.
+        if (value > 0 && player.isMuted()) {
+          player.unMute();
+          savedMuted = false;
+          try { localStorage.setItem('imperius-player-muted', '0'); } catch (e) {}
+          setMuteIcon(false);
+        }
+      }
+    });
+  }
+  if (muteBtn) {
+    muteBtn.addEventListener('click', function () {
+      savedMuted = !savedMuted;
+      try { localStorage.setItem('imperius-player-muted', savedMuted ? '1' : '0'); } catch (e) {}
+      setMuteIcon(savedMuted);
+      if (playerReady) { savedMuted ? player.mute() : player.unMute(); }
+    });
+  }
+
+  document.addEventListener('imperius:langchange', function () {
+    setMuteIcon(savedMuted);
+  });
 })();
