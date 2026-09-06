@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "imperius-dev",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["scripts/dev-server.js"],
+      "port": 5500
+    }
+  ]
+}
