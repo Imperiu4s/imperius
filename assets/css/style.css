@@ -649,6 +649,12 @@ body.nav-open { overflow: hidden; }
   gap: clamp(2rem, 5vw, 4rem);
   align-items: center;
 }
+/* Grid items default to min-width: auto, i.e. never narrower than their
+   widest unshrinkable child (here, the now-playing volume slider) — so
+   without this the whole column (and the text inside it) refused to
+   shrink below that width and overflowed narrow viewports instead of
+   wrapping/resizing normally. */
+.hero-grid > * { min-width: 0; }
 @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
 
 .hero-tagline { font-size: clamp(1.05rem, 1.6vw, 1.2rem); max-width: 46ch; margin-block: 1.4rem 2rem; }
@@ -796,6 +802,7 @@ body.nav-open { overflow: hidden; }
    don't render consistently the same way across engines. */
 .now-playing-volume-slider {
   flex: 1;
+  min-width: 0;
   -webkit-appearance: none;
   appearance: none;
   height: 4px;
