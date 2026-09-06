@@ -755,7 +755,7 @@ body.nav-open { overflow: hidden; }
 
 /* Three distinct, separately-clickable controls — not one button that
    swaps its own icon/meaning depending on state. */
-.now-playing-controls { display: flex; gap: .5rem; }
+.now-playing-controls { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
 .now-playing-btn {
   flex-shrink: 0;
   width: 32px; height: 32px;
@@ -769,6 +769,55 @@ body.nav-open { overflow: hidden; }
 .now-playing-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
 .now-playing-btn svg { width: 14px; height: 14px; }
 .now-playing-btn.is-active { background: var(--gradient); color: #08080d; border-color: transparent; }
+
+.now-playing-volume { display: flex; align-items: center; gap: .5rem; margin-left: auto; flex: 1; min-width: 90px; }
+.now-playing-mute {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  transition: color .2s var(--ease);
+}
+.now-playing-mute:hover { color: var(--accent); }
+.now-playing-mute svg { width: 16px; height: 16px; }
+
+/* A custom-styled range input — the filled portion (left of the thumb)
+   is painted via a JS-updated background-image gradient, see
+   now-playing.js, rather than relying on browser-specific
+   ::-webkit-slider-runnable-track / ::-moz-range-progress rules that
+   don't render consistently the same way across engines. */
+.now-playing-volume-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--surface-strong);
+  outline: none;
+  cursor: pointer;
+}
+.now-playing-volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: 2px solid var(--bg-alt);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.now-playing-volume-slider::-moz-range-thumb {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: 2px solid var(--bg-alt);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.now-playing-volume-slider::-moz-range-track { background: transparent; }
 
 /* The real YouTube iframe lives here, clipped to invisible — the
    widget above is a custom-styled remote for it. */
