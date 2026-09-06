@@ -12,6 +12,11 @@
 html, body, h1, h2, h3, h4, p, figure, blockquote, dl, dd, ul, ol { margin: 0; }
 ul[class], ol[class] { list-style: none; padding: 0; }
 img, picture, svg { display: block; max-width: 100%; }
+/* Same [hidden]-vs-author-display tie-break gotcha as elsewhere in this
+   file: this reset's `display: block` on every svg beats the UA
+   stylesheet's `[hidden] { display: none }`, so a hidden icon (like the
+   now-playing widget's mute/unmute swap) would render anyway. */
+svg[hidden] { display: none; }
 input, button, textarea, select { font: inherit; color: inherit; }
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; background: none; border: none; }
