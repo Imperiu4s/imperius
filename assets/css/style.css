@@ -211,6 +211,13 @@ p { color: var(--text-dim); }
    main.js). Same size and color in every state; hovering an
    interactive element only rotates it 45° into an "×", nothing else. */
 html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
+/* The universal `*` above doesn't reach into a range input's thumb —
+   ::-webkit-slider-thumb/::-moz-range-thumb are UA shadow parts, not
+   matched by a bare `*` selector — so any slider's own `cursor: pointer`
+   (e.g. the now-playing volume slider) kept showing the native pointer
+   right where visitors actually drag it. */
+html.has-custom-cursor input[type="range"]::-webkit-slider-thumb,
+html.has-custom-cursor input[type="range"]::-moz-range-thumb { cursor: none !important; }
 .cursor-ring {
   /* Positioned via translate3d in JS (main.js) — that inline transform
      replaces any transform set here entirely, so the rotation lives on

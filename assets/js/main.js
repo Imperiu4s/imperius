@@ -347,26 +347,14 @@
       }
     } catch (e) {}
 
-    var rafId = null;
-    // Runs only while the ring is still catching up to the pointer, not
-    // forever — an rAF loop that never stops is a permanent per-frame
-    // cost for as long as the tab stays open, for no benefit once the
-    // two positions have converged.
-    function loop() {
-      ringX += (mouseX - ringX) * 0.18;
-      ringY += (mouseY - ringY) * 0.18;
-      ring.style.transform = 'translate3d(' + ringX + 'px,' + ringY + 'px,0)';
-      if (Math.abs(mouseX - ringX) > 0.5 || Math.abs(mouseY - ringY) > 0.5) {
-        rafId = requestAnimationFrame(loop);
-      } else {
-        rafId = null;
-      }
-    }
+    // Tracks the real pointer 1:1, no trailing/catch-up easing — that
+    // used to make the reticle visibly lag behind fast mouse movement,
+    // reading as "slower than the actual cursor".
     document.addEventListener('mousemove', function (e) {
-      mouseX = e.clientX; mouseY = e.clientY;
+      mouseX = ringX = e.clientX; mouseY = ringY = e.clientY;
+      ring.style.transform = 'translate3d(' + ringX + 'px,' + ringY + 'px,0)';
       if (ring.style.opacity !== '1') ring.style.opacity = '1';
       try { sessionStorage.setItem('imperius-cursor-pos', mouseX + ',' + mouseY); } catch (e) {}
-      if (rafId === null) rafId = requestAnimationFrame(loop);
     });
     // Hiding on `mouseleave` also fired when crossing onto the page's
     // own scrollbar (not actually leaving the window), which is why the
