@@ -153,7 +153,7 @@ oldalon renderelt verzió lenne a következő lépés.
 
 A `tudasfa.html` egy önálló minijáték: kvízkérdésekre kell helyesen
 válaszolni, minden helyes válasz eggyel feljebb visz egy szinten, egy
-rossz válasz pedig visszaküld a legaljára. A kérdésbank (~54 kérdés,
+rossz válasz pedig visszaküld a legaljára. A kérdésbank (~304 kérdés,
 magyarul és angolul is) az `assets/js/knowledge-tree.js` fájlban van —
 ha kifogysz az ötletekből, csak vegyél fel új `{q, a: [...4 válasz],
 correct: index}` bejegyzéseket a `hu` és `en` tömbbe (ugyanabban a
